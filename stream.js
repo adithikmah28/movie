@@ -1,70 +1,57 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // === DEFINISI ELEMEN ===
-    const videoIframe = document.getElementById('video-iframe'); // <-- GANTI KE IFRAME
+    // Definisi elemen (tidak berubah)
+    const videoIframe = document.getElementById('video-iframe');
     const movieTitleElement = document.getElementById('stream-movie-title');
-    const adOverlay = document.getElementById('ad-overlay');
-    const adLink = document.getElementById('ad-link');
-    
-    // Elemen detail (tidak berubah)
-    const detailQuality = document.getElementById('detail-quality');
-    const detailGenre = document.getElementById('detail-genre');
-    const detailActors = document.getElementById('detail-actors');
-    const detailDirector = document.getElementById('detail-director');
-    const detailCountry = document.getElementById('detail-country');
+    // ... (definisi elemen lainnya)
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const movieId = urlParams.get('id');
+    // --- FUNGSI BARU: Update SEO & Meta Tags ---
+    function updateMetaTags(movie) {
+        // Update Judul Tab
+        document.title = `Nonton ${movie.title} (${movie.year}) Sub Indo - BroFlix`;
 
-    if (!movieId) {
-        movieTitleElement.textContent = "Film tidak ditemukan!";
-        return;
+        // Buat atau Update Meta Description
+        let descriptionTag = document.querySelector('meta[name="description"]');
+        if (!descriptionTag) {
+            descriptionTag = document.createElement('meta');
+            descriptionTag.name = 'description';
+            document.head.appendChild(descriptionTag);
+        }
+        descriptionTag.content = `Streaming & Nonton film ${movie.title} (${movie.year}) sub indo, kualitas ${movie.quality}. Dibintangi oleh ${movie.actors.join(', ')}. Hanya di BroFlix.`;
+
+        // Buat atau Update Meta Keywords
+        let keywordsTag = document.querySelector('meta[name="keywords"]');
+        if (!keywordsTag) {
+            keywordsTag = document.createElement('meta');
+            keywordsTag.name = 'keywords';
+            document.head.appendChild(keywordsTag);
+        }
+        keywordsTag.content = `nonton ${movie.title}, streaming ${movie.title} sub indo, download ${movie.title}, ${movie.genre.join(', ')}, ${movie.country}, film ${movie.year}`;
     }
 
+    // Fungsi getMovieData diperbarui
     async function getMovieData() {
+        // ... (kode untuk mengambil movieId tidak berubah) ...
         try {
             const response = await fetch('movies.json');
             const movies = await response.json();
             const movie = movies.find(m => m.id == movieId);
 
             if (movie) {
-                // Tampilkan data
-                movieTitleElement.textContent = movie.title;
-                document.title = `Nonton ${movie.title} | BroFlix`;
+                // --- PERUBAHAN DI SINI ---
+                // 1. Set judul dengan tahun
+                movieTitleElement.textContent = `${movie.title} (${movie.year})`;
+                // 2. Panggil fungsi untuk update SEO
+                updateMetaTags(movie);
+                // 3. Set sisa data (tidak berubah)
+                videoIframe.src = movie.iframeUrl; 
+                // ... (set detail film lainnya) ...
 
-                // Set sumber iframe
-                videoIframe.src = movie.iframeUrl; // <-- GUNAKAN iframeUrl
-
-                // Isi detail film
-                detailQuality.textContent = movie.quality;
-                detailGenre.textContent = movie.genre.join(', ');
-                detailActors.textContent = movie.actors.join(', ');
-                detailDirector.textContent = movie.director;
-                detailCountry.textContent = movie.country;
-
-                // GANTI LINK IKLANMU DI SINI
-                adLink.href = 'https://link-adsterra-kamu.com/disini'; 
-            } else {
-                movieTitleElement.textContent = "Film tidak ditemukan!";
-            }
-        } catch (error) {
-            console.error('Gagal memuat data film:', error);
-            movieTitleElement.textContent = "Gagal memuat data.";
-        }
+            } else { /* ... */ }
+        } catch (error) { /* ... */ }
     }
-
-    // LOGIKA IKLAN BARU
-    adLink.addEventListener('click', (event) => {
-        event.preventDefault(); 
-        
-        window.open(adLink.href, '_blank');
-        
-        // Sembunyikan lapisan iklan
-        adOverlay.style.display = 'none';
-        
-        // HAPUS videoPlayer.play()
-        // Kita tidak bisa menekan tombol play di dalam iframe secara otomatis
-        // Pengguna harus mengklik play sendiri di dalam player iframe
-    });
-
+    
+    // Logika iklan (tidak berubah)
+    adLink.addEventListener('click', (event) => { /* ... */ });
+    
     getMovieData();
 });
