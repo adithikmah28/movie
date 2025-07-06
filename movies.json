@@ -4,7 +4,7 @@
     "title": "Big Buck Bunny",
     "category": "trending",
     "poster": "https://placehold.co/200x300/111/fff?text=Movie+1",
-    "iframeUrl": "https://www.youtube.com/embed/aqz-KE-bpKQ", // <-- GANTI INI
+    "iframeUrl": "https://www.youtube.com/embed/aqz-KE-bpKQ",
     "quality": "HD",
     "rating": 4.5,
     "actors": ["John Doe", "Jane Smith", "Bunny"],
@@ -17,7 +17,7 @@
     "title": "Elephants Dream",
     "category": "trending",
     "poster": "https://placehold.co/200x300/222/fff?text=Movie+2",
-    "iframeUrl": "https://player.vimeo.com/video/17787634", // <-- GANTI INI
+    "iframeUrl": "https://player.vimeo.com/video/17787634",
     "quality": "SD",
     "rating": 4.2,
     "actors": ["Tygo Gernandt", "Cas Jansen"],
@@ -30,7 +30,7 @@
     "title": "John Wick (Contoh)",
     "category": "action",
     "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/fZPSd91yGE9fWyNDuxJrdmB22l1.jpg",
-    "iframeUrl": "https://vidsrc.to/embed/movie/tt2911666", // <-- CONTOH LINK EMBED UMUM
+    "iframeUrl": "https://vidsrc.to/embed/movie/tt2911666",
     "quality": "HD",
     "rating": 7.4,
     "actors": ["Keanu Reeves", "Michael Nyqvist", "Alfie Allen"],
