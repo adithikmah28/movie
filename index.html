@@ -1,36 +1,24 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BroFlix - Nonton Film Sepuasnya</title>
+    <!-- PASTIKAN BARIS INI ADA DAN BENAR -->
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
-    <!-- Header dan Sidebar (Tidak berubah) -->
-    <header> ... </header>
-    <nav class="sidebar" id="sidebar"> ... </nav>
-    <div class="overlay" id="overlay"></div>
 
-    <!-- Main Content (Tidak berubah) -->
-    <main> ... </main>
-
-    <!-- HAPUS BAGIAN INI DARI KODE SEBELUMNYA -->
-    <!-- <div id="video-modal" class="modal"> ... </div> -->
-
-    <footer>
-        <p>© 2024 BroFlix. Dibuat dengan cinta.</p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-
-    <!-- Header Baru dengan Menu Toggle -->
     <header>
-        <div class="menu-toggle" id="menu-toggle">
-            ☰ <!-- Ini adalah ikon hamburger (3 baris) -->
-        </div>
-        <a href="#" class="logo">BroFlix</a>
-        <div class="header-placeholder"></div> <!-- Untuk menyeimbangkan logo di tengah -->
+        <div class="menu-toggle" id="menu-toggle">☰</div>
+        <a href="index.html" class="logo">BroFlix</a>
+        <div class="header-placeholder"></div>
     </header>
 
-    <!-- Sidebar Menu (Awalnya tersembunyi) -->
     <nav class="sidebar" id="sidebar">
         <input type="search" id="search-input" placeholder="Cari film...">
         <ul>
-            <li><a href="#">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="#">Series</a></li>
             <li><a href="#">Movies</a></li>
         </ul>
@@ -38,36 +26,75 @@
     <div class="overlay" id="overlay"></div>
 
     <main>
-        <!-- Konten Kategori (Tidak berubah) -->
         <section class="movie-category">
             <h2>Trending Now</h2>
             <div class="movie-grid" id="trending-movies"></div>
         </section>
-
         <section class="movie-category">
             <h2>Action</h2>
             <div class="movie-grid" id="action-movies"></div>
         </section>
-        
         <section class="movie-category">
             <h2>Comedy</h2>
             <div class="movie-grid" id="comedy-movies"></div>
         </section>
-
         <section class="movie-category">
             <h2>Drama</h2>
             <div class="movie-grid" id="drama-movies"></div>
         </section>
     </main>
 
-    <!-- Modal Video Player (Tidak berubah) -->
-    <div id="video-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">×</span>
-            <h3 id="modal-movie-title">Judul Film</h3>
-            <video id="video-player" width="100%" controls autoplay></video>
-        </div>
-    </div>
+    <footer>
+        <p>© 2024 BroFlix. Dibuat dengan cinta.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BroFlix - Nonton Film Sepuasnya</title>
+    <!-- PASTIKAN BARIS INI ADA DAN BENAR -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="menu-toggle" id="menu-toggle">☰</div>
+        <a href="index.html" class="logo">BroFlix</a>
+        <div class="header-placeholder"></div>
+    </header>
+
+    <nav class="sidebar" id="sidebar">
+        <input type="search" id="search-input" placeholder="Cari film...">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Series</a></li>
+            <li><a href="#">Movies</a></li>
+        </ul>
+    </nav>
+    <div class="overlay" id="overlay"></div>
+
+    <main>
+        <section class="movie-category">
+            <h2>Trending Now</h2>
+            <div class="movie-grid" id="trending-movies"></div>
+        </section>
+        <section class="movie-category">
+            <h2>Action</h2>
+            <div class="movie-grid" id="action-movies"></div>
+        </section>
+        <section class="movie-category">
+            <h2>Comedy</h2>
+            <div class="movie-grid" id="comedy-movies"></div>
+        </section>
+        <section class="movie-category">
+            <h2>Drama</h2>
+            <div class="movie-grid" id="drama-movies"></div>
+        </section>
+    </main>
 
     <footer>
         <p>© 2024 BroFlix. Dibuat dengan cinta.</p>
