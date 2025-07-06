@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sedang Menonton... | BroFlix</title>
-    <!-- PASTIKAN BARIS INI JUGA ADA DAN BENAR -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header>
         <a href="index.html" class="back-button">← Kembali</a>
         <a href="index.html" class="logo">BroFlix</a>
@@ -17,10 +15,36 @@
 
     <main class="stream-container">
         <h1 id="stream-movie-title">Memuat judul film...</h1>
-        <div class="video-player-wrapper">
-            <video id="video-player" controls autoplay>
-                <p>Browser Anda tidak mendukung tag video.</p>
-            </video>
+        
+        <!-- === WADAH PLAYER DENGAN LAPISAN IKLAN === -->
+        <div class="video-container">
+            <div class="video-player-wrapper">
+                <!-- Hapus 'autoplay', JS yang akan mengontrolnya -->
+                <video id="video-player" controls>
+                    <p>Browser Anda tidak mendukung tag video.</p>
+                </video>
+            </div>
+            <!-- Lapisan Iklan yang menutupi video -->
+            <div id="ad-overlay">
+                <div class="ad-box">
+                    <h3>Nonton Gratis?</h3>
+                    <p>Cukup klik iklan di bawah ini sekali untuk membuka pemutar video. Terima kasih telah mendukung kami!</p>
+                    <a href="YOUR_ADSTERRA_DIRECT_LINK_HERE" id="ad-link" target="_blank">
+                        KLIK IKLAN UNTUK MELANJUTKAN
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- === AKHIR WADAH PLAYER === -->
+
+        <!-- === BAGIAN DETAIL FILM === -->
+        <div class="movie-details">
+            <h2>Detail Film</h2>
+            <p><strong>Kualitas:</strong> <span id="detail-quality">...</span></p>
+            <p><strong>Genre:</strong> <span id="detail-genre">...</span></p>
+            <p><strong>Pemeran:</strong> <span id="detail-actors">...</span></p>
+            <p><strong>Sutradara:</strong> <span id="detail-director">...</span></p>
+            <p><strong>Negara:</strong> <span id="detail-country">...</span></p>
         </div>
     </main>
     
