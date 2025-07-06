@@ -1,109 +1,108 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Definisi variabel (Sama seperti sebelumnya)
+    // --- ELEMEN BARU UNTUK MENU & PENCARIAN ---
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const searchInput = document.getElementById('search-input');
+
+    // Elemen lama (Sama seperti sebelumnya)
     const categoryGrids = {
         trending: document.getElementById('trending-movies'),
         action: document.getElementById('action-movies'),
         comedy: document.getElementById('comedy-movies'),
         drama: document.getElementById('drama-movies'),
     };
-
     const modal = document.getElementById('video-modal');
     const modalTitle = document.getElementById('modal-movie-title');
     const videoPlayer = document.getElementById('video-player');
     const closeButton = document.querySelector('.close-button');
+    
+    let allMovies = []; // Simpan semua film di sini untuk pencarian
 
-    // --- FUNGSI BARU UNTUK MEMBUAT BINTANG RATING ---
-    function generateStars(rating) {
-        const totalStars = 5;
-        let starsHTML = '';
-        const fullStars = Math.floor(rating);
-        const hasHalfStar = rating % 1 >= 0.5;
+    // --- LOGIKA UNTUK SIDEBAR MENU ---
+    menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('show');
+    });
 
-        // Bintang Penuh
-        for (let i = 0; i < fullStars; i++) {
-            starsHTML += '★';
-        }
-        // Bintang Setengah (jika ada)
-        if (hasHalfStar) {
-            // Kita tetap pakai ★ untuk simple, tapi bisa diganti icon lain jika mau
-            // Untuk simple, kita bulatkan ke atas saja.
-        }
-        // Bintang Kosong
-        const emptyStars = totalStars - Math.ceil(rating);
-        for (let i = 0; i < emptyStars; i++) {
-            starsHTML += '☆';
-        }
+    overlay.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('show');
+    });
 
-        // Simplifikasi: 4.2 -> ★★★★☆, 4.8 -> ★★★★★
-        let simpleStars = '';
-        for(let i = 1; i <= 5; i++) {
-            simpleStars += (i <= Math.round(rating)) ? '★' : '☆';
-        }
-        return simpleStars;
-    }
-
+    // Ambil data film
     async function fetchMovies() {
         try {
             const response = await fetch('movies.json');
             if (!response.ok) throw new Error('Gagal memuat data film!');
-            const movies = await response.json();
-            displayMovies(movies);
+            allMovies = await response.json(); // Simpan data ke variabel global
+            displayMovies(allMovies);
         } catch (error) {
             console.error(error);
         }
     }
 
-    // --- FUNGSI displayMovies DI-UPDATE ---
-    function displayMovies(movies) {
+    // --- FUNGSI displayMovies DI-UPDATE TOTAL ---
+    function displayMovies(moviesToDisplay) {
         // Bersihkan semua grid
         Object.values(categoryGrids).forEach(grid => {
             if (grid) grid.innerHTML = '';
         });
 
-        movies.forEach(movie => {
-            const movieElement = document.createElement('div');
-            movieElement.classList.add('movie-poster');
+        moviesToDisplay.forEach(movie => {
+            // Membuat container utama untuk setiap film
+            const movieItem = document.createElement('div');
+            movieItem.classList.add('movie-item');
+            // Simpan judul untuk pencarian, dalam huruf kecil agar tidak case-sensitive
+            movieItem.dataset.title = movie.title.toLowerCase();
 
-            // Membuat HTML untuk poster dengan overlay
-            movieElement.innerHTML = `
-                <img src="${movie.poster}" alt="${movie.title}">
-                <div class="quality-tag quality-${movie.quality.toLowerCase()}">${movie.quality}</div>
-                <div class="rating">${generateStars(movie.rating)}</div>
+            // Isi container dengan poster dan judul
+            movieItem.innerHTML = `
+                <div class="movie-poster">
+                    <img src="${movie.poster}" alt="${movie.title}">
+                    <div class="quality-tag quality-${movie.quality.toLowerCase()}">${movie.quality}</div>
+                    <div class="rating">
+                        <span class="rating-star">⭐</span>
+                        <span>${movie.rating.toFixed(1)}</span>
+                    </div>
+                </div>
+                <p class="movie-title">${movie.title}</p>
             `;
             
-            // Simpan data untuk modal
-            movieElement.dataset.videoUrl = movie.videoUrl;
-            movieElement.dataset.title = movie.title;
-
-            // Event listener untuk membuka modal
-            movieElement.addEventListener('click', () => {
+            // Tambahkan event listener ke poster untuk membuka modal
+            const posterElement = movieItem.querySelector('.movie-poster');
+            posterElement.addEventListener('click', () => {
                 openModal(movie.title, movie.videoUrl);
             });
             
-            // Masukkan ke grid yang sesuai
+            // Masukkan ke grid kategori yang benar
             if (categoryGrids[movie.category]) {
-                categoryGrids[movie.category].appendChild(movieElement);
+                categoryGrids[movie.category].appendChild(movieItem);
             }
         });
     }
 
-    // Fungsi modal (Sama seperti sebelumnya)
-    function openModal(title, videoUrl) {
-        modalTitle.textContent = title;
-        videoPlayer.src = videoUrl;
-        modal.style.display = 'flex';
-    }
+    // --- LOGIKA PENCARIAN FILM ---
+    searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase().trim();
+        const allMovieItems = document.querySelectorAll('.movie-item');
 
-    function closeModal() {
-        modal.style.display = 'none';
-        videoPlayer.pause();
-        videoPlayer.src = '';
-    }
-
-    closeButton.addEventListener('click', closeModal);
-    window.addEventListener('click', (event) => {
-        if (event.target == modal) closeModal();
+        allMovieItems.forEach(item => {
+            const title = item.dataset.title;
+            if (title.includes(searchTerm)) {
+                item.classList.remove('hide');
+            } else {
+                item.classList.add('hide');
+            }
+        });
     });
+
+
+    // Fungsi Modal (Sama seperti sebelumnya)
+    function openModal(title, videoUrl) { /* ... tidak berubah ... */ }
+    function closeModal() { /* ... tidak berubah ... */ }
+    closeButton.addEventListener('click', closeModal);
+    window.addEventListener('click', (event) => { if (event.target == modal) closeModal(); });
 
     // Panggil fungsi utama
     fetchMovies();
