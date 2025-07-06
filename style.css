@@ -1,4 +1,4 @@
-/* General Styling */
+/* General Styling (Sama seperti sebelumnya) */
 :root {
     --primary-color: #e50914;
     --dark-color: #141414;
@@ -13,40 +13,12 @@ body {
     padding: 0;
 }
 
-/* Header & Nav */
-header {
-    padding: 20px 50px;
-    background-color: rgba(20, 20, 20, 0.8);
-    position: fixed;
-    width: 100%;
-    z-index: 100;
-    box-sizing: border-box;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav .logo {
-    color: var(--primary-color);
-    font-size: 2em;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-nav a {
-    color: var(--light-color);
-    text-decoration: none;
-    font-size: 1em;
-}
+/* Header & Nav (Sama seperti sebelumnya) */
+header { padding: 20px 50px; background-color: rgba(20, 20, 20, 0.8); position: fixed; width: 100%; z-index: 100; box-sizing: border-box; }
+nav { display: flex; justify-content: space-between; align-items: center; }
+nav .logo { color: var(--primary-color); font-size: 2em; font-weight: bold; text-decoration: none; }
+nav ul { list-style: none; display: flex; gap: 20px; }
+nav a { color: var(--light-color); text-decoration: none; font-size: 1em; }
 
 /* Main Content */
 main {
@@ -60,20 +32,25 @@ main {
     margin-bottom: 20px;
 }
 
+/* --- PERUBAHAN UTAMA DI SINI --- */
+
 .movie-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    /* Ukuran poster diperkecil (dari 180px menjadi 140px) */
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 15px;
 }
 
 .movie-poster {
+    position: relative; /* Penting untuk menampung elemen di atasnya */
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
+    overflow: hidden; /* Sembunyikan bagian yang keluar dari border-radius */
+    border-radius: 5px;
 }
 
 .movie-poster img {
     width: 100%;
-    border-radius: 5px;
     display: block;
 }
 
@@ -81,54 +58,54 @@ main {
     transform: scale(1.05);
 }
 
-/* Modal Video Player */
-.modal {
-    display: none; /* Sembunyikan secara default */
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.8);
-    justify-content: center;
-    align-items: center;
-}
+/* --- CSS BARU UNTUK TAG KUALITAS & RATING --- */
 
-.modal-content {
-    background-color: #181818;
-    padding: 20px;
-    border-radius: 5px;
-    width: 80%;
-    max-width: 900px;
-    position: relative;
-}
-
-.close-button {
-    color: #aaa;
+.quality-tag {
     position: absolute;
-    top: 10px;
-    right: 25px;
-    font-size: 35px;
+    top: 8px;
+    right: 8px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
     font-weight: bold;
-    cursor: pointer;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
 }
 
-.close-button:hover,
-.close-button:focus {
-    color: #fff;
+/* Warna berdasarkan kualitas */
+.quality-hd { background-color: #28a745; } /* Hijau */
+.quality-sd { background-color: #17a2b8; } /* Biru Muda */
+.quality-cam { background-color: #dc3545; } /* Merah */
+
+.rating {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    color: #ffc107; /* Warna emas untuk bintang */
+    font-size: 1.1em;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
 }
 
-#modal-movie-title {
-    margin-top: 0;
-    margin-bottom: 15px;
+/* Responsif untuk Mobile */
+@media (max-width: 600px) {
+    main {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .movie-grid {
+        /* Ukuran poster lebih kecil lagi di mobile */
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+    }
 }
 
-/* Footer */
-footer {
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-    border-top: 1px solid #333;
-}
+/* Modal Video Player (Sama seperti sebelumnya) */
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; }
+.modal-content { background-color: #181818; padding: 20px; border-radius: 5px; width: 80%; max-width: 900px; position: relative; }
+.close-button { color: #aaa; position: absolute; top: 10px; right: 25px; font-size: 35px; font-weight: bold; cursor: pointer; }
+.close-button:hover, .close-button:focus { color: #fff; }
+#modal-movie-title { margin-top: 0; margin-bottom: 15px; }
+
+/* Footer (Sama seperti sebelumnya) */
+footer { text-align: center; padding: 20px; margin-top: 40px; border-top: 1px solid #333; }
