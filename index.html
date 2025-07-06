@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BroFlix - Nonton Film Sepuasnya</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#" class="logo">BroFlix</a>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Series</a></li>
+                <li><a href="#">Movies</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Kategori Film Trending -->
+        <section class="movie-category">
+            <h2>Trending Now</h2>
+            <div class="movie-grid" id="trending-movies">
+                <!-- Poster film akan dimuat di sini oleh JavaScript -->
+            </div>
+        </section>
+
+        <!-- Kategori Film Action -->
+        <section class="movie-category">
+            <h2>Action</h2>
+            <div class="movie-grid" id="action-movies">
+                <!-- Poster film akan dimuat di sini oleh JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Kategori Film Comedy -->
+        <section class="movie-category">
+            <h2>Comedy</h2>
+            <div class="movie-grid" id="comedy-movies">
+                <!-- Poster film akan dimuat di sini oleh JavaScript -->
+            </div>
+        </section>
+
+        <!-- Kategori Film Drama -->
+        <section class="movie-category">
+            <h2>Drama</h2>
+            <div class="movie-grid" id="drama-movies">
+                <!-- Poster film akan dimuat di sini oleh JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal untuk Video Player -->
+    <div id="video-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <h3 id="modal-movie-title">Judul Film</h3>
+            <video id="video-player" width="100%" controls autoplay></video>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 BroFlix. Dibuat dengan cinta.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
