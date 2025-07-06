@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const moviesGrid = document.getElementById('movies-grid');
     const seriesGrid = document.getElementById('series-grid');
 
-    // Toggle Sidebar
     if(menuToggle && sidebar && overlay) {
         menuToggle.addEventListener('click', () => {
             sidebar.classList.toggle('open');
@@ -19,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Fungsi untuk membuat elemen item film/series
     function createContentItem(item) {
         const itemElement = document.createElement('div');
         itemElement.classList.add('movie-item');
@@ -43,62 +41,52 @@ document.addEventListener('DOMContentLoaded', () => {
         return itemElement;
     }
 
-    // Fungsi utama untuk memuat dan menampilkan data di halaman utama
     async function fetchAndDisplayHomepageContent() {
+        if (!moviesGrid || !seriesGrid) {
+            console.error("Elemen 'movies-grid' atau 'series-grid' tidak ditemukan. Pastikan ID di index.html sudah benar.");
+            return;
+        }
+
         try {
             const response = await fetch('movies.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
             
             const movies = data.filter(item => item.type === 'movie');
             const series = data.filter(item => item.type === 'series');
 
-            if(moviesGrid) moviesGrid.innerHTML = '';
-            if(seriesGrid) seriesGrid.innerHTML = '';
+            moviesGrid.innerHTML = '';
+            seriesGrid.innerHTML = '';
 
-            // Tampilkan maksimal 10 film
             movies.slice(0, 10).forEach(movie => {
-                if(moviesGrid) moviesGrid.appendChild(createContentItem(movie));
+                moviesGrid.appendChild(createContentItem(movie));
             });
 
-            // Tampilkan maksimal 10 series
             series.slice(0, 10).forEach(serie => {
-                if(seriesGrid) seriesGrid.appendChild(createContentItem(serie));
+                seriesGrid.appendChild(createContentItem(serie));
             });
 
         } catch (error) {
-            console.error('Gagal memuat konten:', error);
-            if(moviesGrid) moviesGrid.innerHTML = '<p>Gagal memuat film.</p>';
-            if(seriesGrid) seriesGrid.innerHTML = '<p>Gagal memuat series.</p>';
+            console.error('Gagal memuat atau menampilkan konten:', error);
+            moviesGrid.innerHTML = '<p>Gagal memuat film. Cek console (F12) untuk detail error.</p>';
+            seriesGrid.innerHTML = '<p>Gagal memuat series. Cek console (F12) untuk detail error.</p>';
         }
     }
 
-    // Fungsi pencarian
     if(searchInput) {
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase().trim();
-            const allContentItems = document.querySelectorAll('.movie-item');
-            
-            allContentItems.forEach(item => {
-                const parentSection = item.closest('.movie-category');
+            document.querySelectorAll('.movie-item').forEach(item => {
                 if (item.dataset.title.includes(searchTerm)) {
                     item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
                 }
-                
-                // Sembunyikan judul seksi jika semua item di dalamnya tersembunyi
-                const visibleItems = parentSection.querySelectorAll('.movie-item[style*="display: flex"]');
-                if (visibleItems.length === 0) {
-                    parentSection.querySelector('.section-header').style.display = 'none';
-                } else {
-                     parentSection.querySelector('.section-header').style.display = 'flex';
-                }
             });
         });
     }
 
-    // Jalankan fungsi jika di halaman yang benar
-    if (moviesGrid && seriesGrid) {
-        fetchAndDisplayHomepageContent();
-    }
+    fetchAndDisplayHomepageContent();
 });
