@@ -1,70 +1,92 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const videoIframe = document.getElementById('video-iframe');
-    const movieTitleElement = document.getElementById('stream-movie-title');
-    const adOverlay = document.getElementById('ad-overlay');
-    const adLink = document.getElementById('ad-link');
-    const detailQuality = document.getElementById('detail-quality');
-    const detailGenre = document.getElementById('detail-genre');
-    const detailActors = document.getElementById('detail-actors');
-    const detailDirector = document.getElementById('detail-director');
-    const detailCountry = document.getElementById('detail-country');
+    const listGrid = document.getElementById('list-grid');
+    const listTitle = document.getElementById('list-title');
+    const paginationControls = document.getElementById('pagination-controls');
 
-    function updateMetaTags(movie) {
-        document.title = `Nonton ${movie.title} (${movie.year}) Sub Indo - BroFlix`;
-        let descriptionTag = document.querySelector('meta[name="description"]');
-        if (!descriptionTag) {
-            descriptionTag = document.createElement('meta');
-            descriptionTag.name = 'description';
-            document.head.appendChild(descriptionTag);
-        }
-        descriptionTag.content = `Streaming & Nonton film ${movie.title} (${movie.year}) sub indo, kualitas ${movie.quality}. Dibintangi oleh ${movie.actors.join(', ')}. Hanya di BroFlix.`;
-        let keywordsTag = document.querySelector('meta[name="keywords"]');
-        if (!keywordsTag) {
-            keywordsTag = document.createElement('meta');
-            keywordsTag.name = 'keywords';
-            document.head.appendChild(keywordsTag);
-        }
-        keywordsTag.content = `nonton ${movie.title}, streaming ${movie.title} sub indo, download ${movie.title}, ${movie.genre.join(', ')}, ${movie.country}, film ${movie.year}`;
+    // Jika elemen penting tidak ditemukan, hentikan skrip dan beri tahu di console.
+    if (!listGrid || !listTitle || !paginationControls) {
+        console.error('Elemen penting (list-grid, list-title, atau pagination-controls) tidak ditemukan di halaman!');
+        if (listTitle) listTitle.textContent = 'Error: Elemen halaman tidak lengkap.';
+        return;
     }
-    
-    async function getMovieData() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const movieId = urlParams.get('id');
 
-        if (!movieId) {
-            movieTitleElement.textContent = "Film tidak ditemukan!";
-            return;
+    const ITEMS_PER_PAGE = 20;
+
+    function createContentItem(item) {
+        const itemElement = document.createElement('div');
+        itemElement.classList.add('movie-item');
+        itemElement.innerHTML = `
+            <div class="movie-poster">
+                <img src="${item.poster}" alt="${item.title}">
+                <div class="quality-tag quality-${item.quality.toLowerCase()}">${item.quality}</div>
+                <div class="rating">
+                    <span class="rating-star">⭐</span>
+                    <span>${item.rating.toFixed(1)}</span>
+                </div>
+            </div>
+            <p class="movie-title">${item.title} (${item.year})</p>
+        `;
+        itemElement.querySelector('.movie-poster').addEventListener('click', () => {
+            window.location.href = `stream.html?id=${item.id}`;
+        });
+        return itemElement;
+    }
+
+    function setupPagination(totalItems, currentPage, type) {
+        paginationControls.innerHTML = '';
+        const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+        if (totalPages <= 1) return;
+
+        for (let i = 1; i <= totalPages; i++) {
+            const pageLink = document.createElement('a');
+            pageLink.href = `list.html?type=${type}&page=${i}`;
+            pageLink.textContent = i;
+            pageLink.classList.add('page-item');
+            if (i === currentPage) {
+                pageLink.classList.add('active');
+            }
+            paginationControls.appendChild(pageLink);
         }
+    }
 
+    async function loadContent() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const type = urlParams.get('type') || 'movie';
+        const currentPage = parseInt(urlParams.get('page')) || 1;
+
+        document.title = `Daftar ${type === 'movie' ? 'Film' : 'Series'} - Halaman ${currentPage} | BroFlix`;
+        listTitle.innerHTML = `<i class="fa-solid fa-${type === 'movie' ? 'film' : 'tv'}"></i> Semua ${type === 'movie' ? 'Film' : 'Serial TV'}`;
+        
         try {
             const response = await fetch('movies.json');
-            const movies = await response.json();
-            const movie = movies.find(m => m.id == movieId);
-
-            if (movie) {
-                movieTitleElement.textContent = `${movie.title} (${movie.year})`;
-                updateMetaTags(movie);
-                videoIframe.src = movie.iframeUrl;
-                detailQuality.textContent = movie.quality;
-                detailGenre.textContent = movie.genre.join(', ');
-                detailActors.textContent = movie.actors.join(', ');
-                detailDirector.textContent = movie.director;
-                detailCountry.textContent = movie.country;
-                adLink.href = 'GANTI_DENGAN_LINK_ADSTERRA_KAMU';
-            } else {
-                movieTitleElement.textContent = "Film tidak ditemukan!";
+            if (!response.ok) {
+                throw new Error(`Gagal memuat movies.json: ${response.statusText}`);
             }
+            const allContent = await response.json();
+
+            const filteredContent = allContent.filter(item => item.type === type);
+            
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIndex = startIndex + ITEMS_PER_PAGE;
+            const contentForPage = filteredContent.slice(startIndex, endIndex);
+
+            listGrid.innerHTML = '';
+            if (contentForPage.length === 0) {
+                listGrid.innerHTML = `<p style="color: #ccc; grid-column: 1 / -1;">Tidak ada konten yang ditemukan untuk kategori ini.</p>`;
+                return;
+            }
+
+            contentForPage.forEach(item => {
+                listGrid.appendChild(createContentItem(item));
+            });
+
+            setupPagination(filteredContent.length, currentPage, type);
+
         } catch (error) {
-            console.error('Gagal memuat data film:', error);
-            movieTitleElement.textContent = "Gagal memuat data.";
+            console.error('Gagal memuat list konten:', error);
+            listGrid.innerHTML = `<p style="color: #ccc; grid-column: 1 / -1;">Terjadi kesalahan saat memuat data. Cek console untuk detail.</p>`;
         }
     }
 
-    adLink.addEventListener('click', (event) => {
-        event.preventDefault();
-        window.open(adLink.href, '_blank');
-        adOverlay.style.display = 'none';
-    });
-
-    getMovieData();
+    loadContent();
 });
