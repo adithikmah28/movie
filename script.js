@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         
         itemElement.querySelector('.movie-poster').addEventListener('click', () => {
-            // Kita gunakan id item untuk ke halaman stream
             window.location.href = `stream.html?id=${item.id}`;
         });
         return itemElement;
@@ -50,11 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('movies.json');
             const data = await response.json();
             
-            // Filter data berdasarkan tipe
             const movies = data.filter(item => item.type === 'movie');
             const series = data.filter(item => item.type === 'series');
 
-            // Kosongkan grid sebelum mengisi
             if(moviesGrid) moviesGrid.innerHTML = '';
             if(seriesGrid) seriesGrid.innerHTML = '';
 
@@ -79,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(searchInput) {
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase().trim();
-            // Pencarian ini hanya akan berfungsi di halaman utama
             const allContentItems = document.querySelectorAll('.movie-item');
             
             allContentItems.forEach(item => {
@@ -92,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Jalankan fungsi jika di halaman yang benar
     if (moviesGrid && seriesGrid) {
         fetchAndDisplayHomepageContent();
     }
