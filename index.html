@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BroFlix - Nonton Film Sepuasnya</title>
+    <title>BroFlix - Nonton Film & Series Sub Indo Gratis</title>
+    
+    <!-- === KEYWORD SEO === -->
+    <meta name="description" content="BroFlix adalah situs nonton film online gratis dengan subtitle Indonesia. Streaming ribuan film box office, drama korea, dan series tv terbaru tanpa iklan mengganggu.">
+    <meta name="keywords" content="nonton film, streaming film, download film, film online, sub indo, nonton gratis, broflix, film terbaru, box office, drama korea">
+    <!-- === AKHIR KEYWORD SEO === -->
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,32 +20,28 @@
     </header>
 
     <nav class="sidebar" id="sidebar">
-        <input type="search" id="search-input" placeholder="Cari film...">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#">Series</a></li>
-            <li><a href="#">Movies</a></li>
-        </ul>
+        <!-- Pencarian masih di sini -->
     </nav>
     <div class="overlay" id="overlay"></div>
 
     <main>
-        <section class="movie-category">
-            <h2>Trending Now</h2>
-            <div class="movie-grid" id="trending-movies"></div>
-        </section>
-        <section class="movie-category">
-            <h2>Action</h2>
-            <div class="movie-grid" id="action-movies"></div>
-        </section>
-        <section class="movie-category">
-            <h2>Comedy</h2>
-            <div class="movie-grid" id="comedy-movies"></div>
-        </section>
-        <section class="movie-category">
-            <h2>Drama</h2>
-            <div class="movie-grid" id="drama-movies"></div>
-        </section>
+        <!-- === FILTER DROPDOWN BARU === -->
+        <div class="filter-container">
+            <select id="genre-filter">
+                <option value="all">Semua Genre</option>
+                <!-- Opsi genre akan diisi oleh JavaScript -->
+            </select>
+            <select id="country-filter">
+                <option value="all">Semua Negara</option>
+                <!-- Opsi negara akan diisi oleh JavaScript -->
+            </select>
+        </div>
+        <!-- === AKHIR FILTER DROPDOWN === -->
+
+        <!-- === GRID UTAMA UNTUK SEMUA FILM === -->
+        <div class="movie-grid" id="all-movies-grid">
+            <!-- Poster film akan dimuat di sini oleh JavaScript -->
+        </div>
     </main>
 
     <footer>
