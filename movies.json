@@ -1,10 +1,11 @@
 [
   {
     "id": 1,
-    "title": "John Wick (2014)",
-    "category": "trending",
-    "poster": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/fZPSd91yGE9fCcCe6OoQr6E3Bev.jpg",
-    "iframeUrl": "https://vidlink.pro/movie/245891",
+    "title": "Big Buck Bunny",
+    "year": 2008,
+    "category": "trending", 
+    "poster": "https://placehold.co/200x300/111/fff?text=Movie+1",
+    "iframeUrl": "https://www.youtube.com/embed/aqz-KE-bpKQ",
     "quality": "HD",
     "rating": 4.5,
     "actors": ["John Doe", "Jane Smith", "Bunny"],
@@ -13,21 +14,9 @@
     "country": "Netherlands"
   },
   {
-    "id": 2,
-    "title": "Elephants Dream",
-    "category": "trending",
-    "poster": "https://placehold.co/200x300/222/fff?text=Movie+2",
-    "iframeUrl": "https://player.vimeo.com/video/17787634",
-    "quality": "SD",
-    "rating": 4.2,
-    "actors": ["Tygo Gernandt", "Cas Jansen"],
-    "director": "Bassam Kurdali",
-    "genre": ["Sci-Fi", "Short"],
-    "country": "Netherlands"
-  },
-  {
     "id": 3,
-    "title": "John Wick (Contoh)",
+    "title": "John Wick",
+    "year": 2014,
     "category": "action",
     "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/fZPSd91yGE9fWyNDuxJrdmB22l1.jpg",
     "iframeUrl": "https://vidsrc.to/embed/movie/tt2911666",
@@ -37,5 +26,19 @@
     "director": "Chad Stahelski",
     "genre": ["Action", "Thriller"],
     "country": "USA"
+  },
+  {
+    "id": 4,
+    "title": "Parasite",
+    "year": 2019,
+    "category": "trending",
+    "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+    "iframeUrl": "https://vidsrc.to/embed/movie/tt6751668",
+    "quality": "HD",
+    "rating": 8.5,
+    "actors": ["Song Kang-ho", "Lee Sun-kyun", "Cho Yeo-jeong"],
+    "director": "Bong Joon Ho",
+    "genre": ["Comedy", "Thriller", "Drama"],
+    "country": "South Korea"
   }
 ]
