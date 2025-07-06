@@ -31,7 +31,7 @@ header .back-button { color: var(--light-color); text-decoration: none; font-siz
 .stream-container h1 { margin-bottom: 20px; font-size: 1.8em; }
 .video-container { position: relative; width: 100%; }
 .video-player-wrapper { position: relative; padding-top: 56.25%; background-color: #000; }
-.video-player-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+.video-player-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 #ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center; z-index: 10; text-align: center; padding: 20px; box-sizing: border-box; }
 .ad-box { max-width: 500px; }
 .ad-box h3 { font-size: 1.8em; color: var(--primary-color); }
