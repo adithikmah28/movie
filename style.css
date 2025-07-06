@@ -1,46 +1,101 @@
-/* ... (salin seluruh kode CSS dari jawaban sebelumnya) ... */
+/* ... (semua style sebelumnya) ... */
 
-/* General & Root */
-:root { --primary-color: #e50914; --dark-color: #141414; --light-color: #f4f4f4; }
-body { font-family: Arial, sans-serif; background-color: var(--dark-color); color: var(--light-color); margin: 0; padding: 0; }
+/* === STYLE BARU UNTUK HALAMAN STREAMING === */
 
-/* HEADER & SIDEBAR */
-header { padding: 15px 20px; background-color: #141414; position: fixed; width: 100%; z-index: 100; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; }
-.menu-toggle { font-size: 24px; cursor: pointer; color: var(--light-color); flex: 1 0 0; }
-header .logo { color: var(--primary-color); font-size: 2em; font-weight: bold; text-decoration: none; text-align: center; flex: 1 0 0; }
-.header-placeholder { flex: 1 0 0; }
-.sidebar { position: fixed; top: 0; left: 0; width: 280px; height: 100%; background-color: #000; z-index: 1001; padding: 20px; box-sizing: border-box; transform: translateX(-100%); transition: transform 0.3s ease-in-out; }
-.sidebar.open { transform: translateX(0); }
-#search-input { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #333; background-color: #222; color: var(--light-color); border-radius: 5px; }
-.sidebar ul { list-style: none; padding: 0; margin: 0; }
-.sidebar ul li a { color: var(--light-color); text-decoration: none; display: block; padding: 15px 0; font-size: 1.1em; }
-.overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; display: none; }
-.overlay.show { display: block; }
+/* Wadah utama untuk video dan lapisan iklan */
+.video-container {
+    position: relative;
+    width: 100%;
+}
 
-/* MOVIE DISPLAY */
-main { padding-top: 100px; padding-left: 20px; padding-right: 20px; }
-.movie-category h2 { font-size: 1.5em; margin-bottom: 20px; }
-.movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 25px 15px; }
-.movie-item { display: flex; flex-direction: column; }
-.movie-poster { position: relative; cursor: pointer; transition: transform 0.2s ease-in-out; border-radius: 5px; overflow: hidden; }
-.movie-poster:hover { transform: scale(1.05); }
-.movie-poster img { width: 100%; display: block; }
-.quality-tag { position: absolute; top: 8px; right: 8px; padding: 3px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.7); }
-.quality-hd { background-color: #28a745; }
-.quality-sd { background-color: #17a2b8; }
-.quality-cam { background-color: #dc3545; }
-.rating { position: absolute; bottom: 8px; left: 8px; display: flex; align-items: center; gap: 4px; color: white; background-color: rgba(0,0,0,0.6); padding: 2px 6px; border-radius: 3px; font-size: 0.9em; font-weight: bold; }
-.rating-star { color: #ffc107; }
-.movie-title { color: #ccc; font-size: 0.9em; margin-top: 8px; text-align: left; white-space: normal; overflow-wrap: break-word; }
-.hide { display: none; }
+.video-player-wrapper {
+    position: relative;
+    padding-top: 56.25%; /* Aspect Ratio 16:9 */
+    background-color: #000;
+}
 
-/* STREAMING PAGE */
-header .back-button { color: var(--light-color); text-decoration: none; font-size: 1.2em; flex: 1 0 0; }
-.stream-container { padding: 20px; padding-top: 100px; max-width: 1200px; margin: 0 auto; }
-.stream-container h1 { margin-bottom: 20px; font-size: 1.8em; }
-.video-player-wrapper { position: relative; padding-top: 56.25%; background-color: #000; }
-.video-player-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+.video-player-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
 
-/* RESPONSIVE & FOOTER */
-@media (max-width: 600px) { .movie-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); } }
-footer { text-align: center; padding: 20px; margin-top: 40px; border-top: 1px solid #333; }
+/* Lapisan Iklan */
+#ad-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex; /* Aktifkan flexbox */
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.ad-box {
+    max-width: 500px;
+}
+
+.ad-box h3 {
+    font-size: 1.8em;
+    color: var(--primary-color);
+}
+
+.ad-box p {
+    margin: 15px 0;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+#ad-link {
+    display: inline-block;
+    background-color: #28a745; /* Hijau */
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+#ad-link:hover {
+    background-color: #218838;
+}
+
+
+/* Bagian Detail Film */
+.movie-details {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #1a1a1a;
+    border-radius: 5px;
+}
+
+.movie-details h2 {
+    margin-top: 0;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.movie-details p {
+    margin: 10px 0;
+    font-size: 1.1em;
+    color: #ccc;
+}
+
+.movie-details p strong {
+    color: #fff;
+    width: 100px; /* Lebar label */
+    display: inline-block;
+}
