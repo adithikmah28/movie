@@ -4,44 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BroFlix - Nonton Film & Series Sub Indo Gratis</title>
-    <meta name="description" content="BroFlix adalah situs nonton film online gratis dengan subtitle Indonesia. Streaming ribuan film box office, drama korea, dan series tv terbaru tanpa iklan mengganggu.">
+    <meta name="description" content="BroFlix adalah situs nonton film online gratis dengan subtitle Indonesia. Streaming ribuan film box office, drama korea, dan series tv terbaru.">
     <meta name="keywords" content="nonton film, streaming film, download film, film online, sub indo, nonton gratis, broflix, film terbaru, box office, drama korea">
     <link rel="stylesheet" href="style.css">
-    <!-- Menggunakan Font Awesome untuk ikon, lebih bagus dari teks -->
+    <!-- Font Awesome untuk ikon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 <body>
+
     <header>
         <div class="menu-toggle" id="menu-toggle">☰</div>
         <a href="index.html" class="logo">BroFlix</a>
-        <!-- Navigasi pindah ke sini agar lebih rapi -->
-        <nav class="main-nav">
-            <!-- Dropdown Genre -->
-            <div class="custom-dropdown" id="genre-dropdown">
-                <button class="dropdown-toggle">
-                    <i class="fa-solid fa-masks-theater"></i> Genre <i class="fa-solid fa-caret-down"></i>
-                </button>
-                <div class="dropdown-menu" id="genre-menu">
-                    <!-- Opsi diisi oleh JS -->
-                </div>
-            </div>
-            <!-- Dropdown Negara -->
-            <div class="custom-dropdown" id="country-dropdown">
-                <button class="dropdown-toggle">
-                    <i class="fa-solid fa-globe"></i> Negara <i class="fa-solid fa-caret-down"></i>
-                </button>
-                <div class="dropdown-menu" id="country-menu">
-                    <!-- Opsi diisi oleh JS -->
-                </div>
-            </div>
-        </nav>
+        <div class="header-placeholder"></div>
     </header>
 
+    <!-- Sidebar dengan Pencarian -->
+    <nav class="sidebar" id="sidebar">
+        <input type="search" id="search-input" placeholder="Cari film...">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Series</a></li>
+            <li><a href="#">Movies</a></li>
+        </ul>
+    </nav>
+    <div class="overlay" id="overlay"></div>
+
     <main>
-        <h2 id="grid-title">Semua Film</h2>
-        <div class="movie-grid" id="all-movies-grid">
-            <!-- Poster film akan dimuat di sini oleh JavaScript -->
-        </div>
+        <!-- Kategori Film Trending -->
+        <section class="movie-category">
+            <h2><i class="fa-solid fa-fire"></i> Trending Now</h2>
+            <div class="movie-grid" id="trending-movies">
+                <!-- Poster diisi oleh JavaScript -->
+            </div>
+        </section>
+
+        <!-- Kategori Film Action -->
+        <section class="movie-category">
+            <h2><i class="fa-solid fa-person-rifle"></i> Action</h2>
+            <div class="movie-grid" id="action-movies">
+                <!-- Poster diisi oleh JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Kategori Film Comedy -->
+        <section class="movie-category">
+            <h2><i class="fa-solid fa-masks-theater"></i> Comedy</h2>
+            <div class="movie-grid" id="comedy-movies">
+                <!-- Poster diisi oleh JavaScript -->
+            </div>
+        </section>
+
+        <!-- Kategori Film Drama -->
+        <section class="movie-category">
+            <h2><i class="fa-solid fa-face-sad-cry"></i> Drama</h2>
+            <div class="movie-grid" id="drama-movies">
+                <!-- Poster diisi oleh JavaScript -->
+            </div>
+        </section>
     </main>
 
     <footer>
