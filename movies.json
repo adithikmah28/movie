@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "title": "Big Buck Bunny",
+    "category": "trending",
+    "poster": "https://placehold.co/200x300/111/fff?text=Movie+1",
+    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+  },
+  {
+    "id": 2,
+    "title": "Elephants Dream",
+    "category": "trending",
+    "poster": "https://placehold.co/200x300/222/fff?text=Movie+2",
+    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+  },
+  {
+    "id": 3,
+    "title": "For Bigger Blazes",
+    "category": "action",
+    "poster": "https://placehold.co/200x300/333/fff?text=Action+1",
+    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+  },
+  {
+    "id": 4,
+    "title": "For Bigger Escapes",
+    "category": "action",
+    "poster": "https://placehold.co/200x300/444/fff?text=Action+2",
+    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
+  },
+  {
+    "id": 5,
+    "title": "For Bigger Fun",
+    "category": "comedy",
+    "poster": "https://placehold.co/200x300/555/fff?text=Comedy+1",
+    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
+  },
+  {
+    "id": 6,
+    "title": "For Bigger Joyrides",
+    "category": "comedy",
+    "poster": "https://placehold.co/200x300/666/fff?text=Comedy+2",
+    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
+  },
+  {
+    "id": 7,
+    "title": "Sintel",
+    "category": "drama",
+    "poster": "https://placehold.co/200x300/777/fff?text=Drama+1",
+    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
+  }
+]
