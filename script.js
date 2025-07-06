@@ -1,11 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Definisi elemen
     const menuToggle = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
     const searchInput = document.getElementById('search-input');
 
-    // Definisikan semua grid kategori
     const categoryGrids = {
         trending: document.getElementById('trending-movies'),
         action: document.getElementById('action-movies'),
@@ -13,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
         drama: document.getElementById('drama-movies'),
     };
     
-    // Logika Sidebar dan Overlay (tidak berubah)
     if(menuToggle) {
         menuToggle.addEventListener('click', () => {
             sidebar.classList.toggle('open');
@@ -27,13 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Ambil dan tampilkan film
     async function fetchAndDisplayMovies() {
         try {
             const response = await fetch('movies.json');
             const movies = await response.json();
             
-            // Bersihkan semua grid sebelum diisi
             Object.values(categoryGrids).forEach(grid => {
                 if (grid) grid.innerHTML = '';
             });
@@ -41,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
             movies.forEach(movie => {
                 const movieItem = document.createElement('div');
                 movieItem.classList.add('movie-item');
-                // Simpan judul di dataset untuk fitur pencarian
                 movieItem.dataset.title = movie.title.toLowerCase();
 
                 movieItem.innerHTML = `
@@ -56,12 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p class="movie-title">${movie.title} (${movie.year})</p>
                 `;
                 
-                // Tambahkan event klik untuk pindah ke halaman streaming
                 movieItem.querySelector('.movie-poster').addEventListener('click', () => {
                     window.location.href = `stream.html?id=${movie.id}`;
                 });
 
-                // Masukkan elemen film ke grid kategori yang sesuai
                 if (categoryGrids[movie.category]) {
                     categoryGrids[movie.category].appendChild(movieItem);
                 }
@@ -72,15 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Logika Pencarian
     if(searchInput) {
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase().trim();
-            // Ambil SEMUA movie-item dari SEMUA kategori
             const allMovieItems = document.querySelectorAll('.movie-item');
 
             allMovieItems.forEach(item => {
-                // Sembunyikan atau tampilkan berdasarkan judul
                 if (item.dataset.title.includes(searchTerm)) {
                     item.style.display = 'flex';
                 } else {
@@ -90,6 +79,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Panggil fungsi utama
     fetchAndDisplayMovies();
 });
