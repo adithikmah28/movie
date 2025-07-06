@@ -3,51 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BroFlix - Nonton Film & Series Sub Indo Gratis</title>
-    
-    <!-- === KEYWORD SEO === -->
-    <meta name="description" content="BroFlix adalah situs nonton film online gratis dengan subtitle Indonesia. Streaming ribuan film box office, drama korea, dan series tv terbaru tanpa iklan mengganggu.">
-    <meta name="keywords" content="nonton film, streaming film, download film, film online, sub indo, nonton gratis, broflix, film terbaru, box office, drama korea">
-    <!-- === AKHIR KEYWORD SEO === -->
-
+    <!-- Judul & SEO akan diisi oleh JavaScript -->
+    <title>Sedang Menonton... | BroFlix</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <div class="menu-toggle" id="menu-toggle">☰</div>
+        <a href="index.html" class="back-button">← Kembali</a>
         <a href="index.html" class="logo">BroFlix</a>
         <div class="header-placeholder"></div>
     </header>
 
-    <nav class="sidebar" id="sidebar">
-        <!-- Pencarian masih di sini -->
-    </nav>
-    <div class="overlay" id="overlay"></div>
-
-    <main>
-        <!-- === FILTER DROPDOWN BARU === -->
-        <div class="filter-container">
-            <select id="genre-filter">
-                <option value="all">Semua Genre</option>
-                <!-- Opsi genre akan diisi oleh JavaScript -->
-            </select>
-            <select id="country-filter">
-                <option value="all">Semua Negara</option>
-                <!-- Opsi negara akan diisi oleh JavaScript -->
-            </select>
+    <main class="stream-container">
+        <!-- Judul ini akan diisi dan ditengahkan oleh CSS -->
+        <h1 id="stream-movie-title">Memuat judul film...</h1>
+        
+        <div class="video-container">
+            <!-- ... (Bagian iframe & ad-overlay tidak berubah) ... -->
         </div>
-        <!-- === AKHIR FILTER DROPDOWN === -->
 
-        <!-- === GRID UTAMA UNTUK SEMUA FILM === -->
-        <div class="movie-grid" id="all-movies-grid">
-            <!-- Poster film akan dimuat di sini oleh JavaScript -->
+        <div class="movie-details">
+            <!-- ... (Bagian detail film tidak berubah) ... -->
         </div>
     </main>
-
-    <footer>
-        <p>© 2024 BroFlix. Dibuat dengan cinta.</p>
-    </footer>
-
-    <script src="script.js"></script>
+    
+    <script src="stream.js"></script>
 </body>
 </html>
