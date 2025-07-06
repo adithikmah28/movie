@@ -1,15 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Definisi elemen (tidak berubah)
     const videoIframe = document.getElementById('video-iframe');
     const movieTitleElement = document.getElementById('stream-movie-title');
-    // ... (definisi elemen lainnya)
+    const adOverlay = document.getElementById('ad-overlay');
+    const adLink = document.getElementById('ad-link');
+    const detailQuality = document.getElementById('detail-quality');
+    const detailGenre = document.getElementById('detail-genre');
+    const detailActors = document.getElementById('detail-actors');
+    const detailDirector = document.getElementById('detail-director');
+    const detailCountry = document.getElementById('detail-country');
 
-    // --- FUNGSI BARU: Update SEO & Meta Tags ---
     function updateMetaTags(movie) {
-        // Update Judul Tab
         document.title = `Nonton ${movie.title} (${movie.year}) Sub Indo - BroFlix`;
-
-        // Buat atau Update Meta Description
         let descriptionTag = document.querySelector('meta[name="description"]');
         if (!descriptionTag) {
             descriptionTag = document.createElement('meta');
@@ -17,8 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.head.appendChild(descriptionTag);
         }
         descriptionTag.content = `Streaming & Nonton film ${movie.title} (${movie.year}) sub indo, kualitas ${movie.quality}. Dibintangi oleh ${movie.actors.join(', ')}. Hanya di BroFlix.`;
-
-        // Buat atau Update Meta Keywords
         let keywordsTag = document.querySelector('meta[name="keywords"]');
         if (!keywordsTag) {
             keywordsTag = document.createElement('meta');
@@ -27,31 +26,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         keywordsTag.content = `nonton ${movie.title}, streaming ${movie.title} sub indo, download ${movie.title}, ${movie.genre.join(', ')}, ${movie.country}, film ${movie.year}`;
     }
-
-    // Fungsi getMovieData diperbarui
+    
     async function getMovieData() {
-        // ... (kode untuk mengambil movieId tidak berubah) ...
+        const urlParams = new URLSearchParams(window.location.search);
+        const movieId = urlParams.get('id');
+
+        if (!movieId) {
+            movieTitleElement.textContent = "Film tidak ditemukan!";
+            return;
+        }
+
         try {
             const response = await fetch('movies.json');
             const movies = await response.json();
             const movie = movies.find(m => m.id == movieId);
 
             if (movie) {
-                // --- PERUBAHAN DI SINI ---
-                // 1. Set judul dengan tahun
                 movieTitleElement.textContent = `${movie.title} (${movie.year})`;
-                // 2. Panggil fungsi untuk update SEO
                 updateMetaTags(movie);
-                // 3. Set sisa data (tidak berubah)
-                videoIframe.src = movie.iframeUrl; 
-                // ... (set detail film lainnya) ...
-
-            } else { /* ... */ }
-        } catch (error) { /* ... */ }
+                videoIframe.src = movie.iframeUrl;
+                detailQuality.textContent = movie.quality;
+                detailGenre.textContent = movie.genre.join(', ');
+                detailActors.textContent = movie.actors.join(', ');
+                detailDirector.textContent = movie.director;
+                detailCountry.textContent = movie.country;
+                adLink.href = 'GANTI_DENGAN_LINK_ADSTERRA_KAMU';
+            } else {
+                movieTitleElement.textContent = "Film tidak ditemukan!";
+            }
+        } catch (error) {
+            console.error('Gagal memuat data film:', error);
+            movieTitleElement.textContent = "Gagal memuat data.";
+        }
     }
-    
-    // Logika iklan (tidak berubah)
-    adLink.addEventListener('click', (event) => { /* ... */ });
-    
+
+    adLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        window.open(adLink.href, '_blank');
+        adOverlay.style.display = 'none';
+    });
+
     getMovieData();
 });
