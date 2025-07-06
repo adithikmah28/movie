@@ -1,0 +1,134 @@
+/* General Styling */
+:root {
+    --primary-color: #e50914;
+    --dark-color: #141414;
+    --light-color: #f4f4f4;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* Header & Nav */
+header {
+    padding: 20px 50px;
+    background-color: rgba(20, 20, 20, 0.8);
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .logo {
+    color: var(--primary-color);
+    font-size: 2em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: var(--light-color);
+    text-decoration: none;
+    font-size: 1em;
+}
+
+/* Main Content */
+main {
+    padding-top: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.movie-category h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.movie-poster {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.movie-poster img {
+    width: 100%;
+    border-radius: 5px;
+    display: block;
+}
+
+.movie-poster:hover {
+    transform: scale(1.05);
+}
+
+/* Modal Video Player */
+.modal {
+    display: none; /* Sembunyikan secara default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #181818;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 900px;
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #fff;
+}
+
+#modal-movie-title {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    border-top: 1px solid #333;
+}
