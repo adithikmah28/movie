@@ -1,10 +1,10 @@
 [
   {
     "id": 1,
-    "title": "Big Buck Bunny",
+    "title": "John Wick (2014)",
     "category": "trending",
-    "poster": "https://placehold.co/200x300/111/fff?text=Movie+1",
-    "iframeUrl": "https://www.youtube.com/embed/aqz-KE-bpKQ",
+    "poster": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/fZPSd91yGE9fCcCe6OoQr6E3Bev.jpg",
+    "iframeUrl": "https://vidlink.pro/movie/245891",
     "quality": "HD",
     "rating": 4.5,
     "actors": ["John Doe", "Jane Smith", "Bunny"],
