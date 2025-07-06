@@ -18,34 +18,30 @@
     </header>
 
     <nav class="sidebar" id="sidebar">
-        <input type="search" id="search-input" placeholder="Cari film...">
+        <input type="search" id="search-input" placeholder="Cari film atau series...">
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="#">Series</a></li>
-            <li><a href="#">Movies</a></li>
+            <li><a href="list.html?type=series">Series</a></li>
+            <li><a href="list.html?type=movie">Movies</a></li>
         </ul>
     </nav>
     <div class="overlay" id="overlay"></div>
 
     <main>
         <section class="movie-category">
-            <h2><i class="fa-solid fa-fire"></i> Trending Now</h2>
-            <div class="movie-grid" id="trending-movies"></div>
+            <div class="section-header">
+                <h2><i class="fa-solid fa-film"></i> Film Terbaru</h2>
+                <a href="list.html?type=movie" class="view-all-link">Lihat Semua →</a>
+            </div>
+            <div class="movie-grid" id="movies-grid"></div>
         </section>
 
         <section class="movie-category">
-            <h2><i class="fa-solid fa-person-rifle"></i> Action</h2>
-            <div class="movie-grid" id="action-movies"></div>
-        </section>
-        
-        <section class="movie-category">
-            <h2><i class="fa-solid fa-masks-theater"></i> Comedy</h2>
-            <div class="movie-grid" id="comedy-movies"></div>
-        </section>
-
-        <section class="movie-category">
-            <h2><i class="fa-solid fa-face-sad-cry"></i> Drama</h2>
-            <div class="movie-grid" id="drama-movies"></div>
+             <div class="section-header">
+                <h2><i class="fa-solid fa-tv"></i> Serial TV Populer</h2>
+                <a href="list.html?type=series" class="view-all-link">Lihat Semua →</a>
+            </div>
+            <div class="movie-grid" id="series-grid"></div>
         </section>
     </main>
 
