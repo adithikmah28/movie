@@ -44,3 +44,30 @@ header .back-button { color: var(--light-color); text-decoration: none; font-siz
 .movie-details p strong { color: #fff; width: 100px; display: inline-block; }
 @media (max-width: 600px) { .movie-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); } }
 footer { text-align: center; padding: 20px; margin-top: 40px; border-top: 1px solid #333; }
+/* ... (semua style sebelumnya) ... */
+
+/* === STYLE BARU UNTUK FILTER DROPDOWN === */
+.filter-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap; /* Agar rapi di mobile */
+}
+
+.filter-container select {
+    padding: 10px;
+    background-color: #333;
+    color: var(--light-color);
+    border: 1px solid #555;
+    border-radius: 5px;
+    font-size: 1em;
+    flex-grow: 1; /* Agar memenuhi ruang */
+}
+
+
+/* === STYLE BARU UNTUK JUDUL DI HALAMAN STREAMING === */
+.stream-container h1 {
+    text-align: center; /* MEMBUAT JUDUL DI TENGAH */
+    margin-bottom: 20px;
+    font-size: 2em;
+}
