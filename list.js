@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const ITEMS_PER_PAGE = 20;
 
-    // Fungsi untuk membuat elemen item (sama seperti di script.js)
     function createContentItem(item) {
         const itemElement = document.createElement('div');
         itemElement.classList.add('movie-item');
@@ -26,11 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return itemElement;
     }
 
-    // Fungsi untuk membuat kontrol pagination
     function setupPagination(totalItems, currentPage, type) {
         paginationControls.innerHTML = '';
         const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-        if (totalPages <= 1) return; // Tidak perlu pagination jika hanya 1 halaman
+        if (totalPages <= 1) return;
 
         for (let i = 1; i <= totalPages; i++) {
             const pageLink = document.createElement('a');
@@ -44,15 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Fungsi utama untuk memuat data berdasarkan URL
     async function loadContent() {
         const urlParams = new URLSearchParams(window.location.search);
-        const type = urlParams.get('type') || 'movie'; // default ke movie jika tidak ada
+        const type = urlParams.get('type') || 'movie';
         const currentPage = parseInt(urlParams.get('page')) || 1;
 
-        // Set judul halaman
         document.title = `Daftar ${type === 'movie' ? 'Film' : 'Series'} - Halaman ${currentPage} | BroFlix`;
-        listTitle.textContent = `Semua ${type === 'movie' ? 'Film' : 'Serial TV'}`;
+        listTitle.innerHTML = `<i class="fa-solid fa-${type === 'movie' ? 'film' : 'tv'}"></i> Semua ${type === 'movie' ? 'Film' : 'Serial TV'}`;
         
         try {
             const response = await fetch('movies.json');
@@ -60,12 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const filteredContent = allContent.filter(item => item.type === type);
             
-            // Hitung item untuk halaman saat ini
             const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
             const endIndex = startIndex + ITEMS_PER_PAGE;
             const contentForPage = filteredContent.slice(startIndex, endIndex);
 
-            listGrid.innerHTML = ''; // Kosongkan grid
+            listGrid.innerHTML = '';
             if (contentForPage.length === 0) {
                 listGrid.innerHTML = `<p>Tidak ada konten yang ditemukan.</p>`;
                 return;
@@ -75,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 listGrid.appendChild(createContentItem(item));
             });
 
-            // Siapkan pagination
             setupPagination(filteredContent.length, currentPage, type);
 
         } catch (error) {
