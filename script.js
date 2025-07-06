@@ -79,15 +79,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const allContentItems = document.querySelectorAll('.movie-item');
             
             allContentItems.forEach(item => {
+                const parentSection = item.closest('.movie-category');
                 if (item.dataset.title.includes(searchTerm)) {
                     item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
                 }
+                
+                // Sembunyikan judul seksi jika semua item di dalamnya tersembunyi
+                const visibleItems = parentSection.querySelectorAll('.movie-item[style*="display: flex"]');
+                if (visibleItems.length === 0) {
+                    parentSection.querySelector('.section-header').style.display = 'none';
+                } else {
+                     parentSection.querySelector('.section-header').style.display = 'flex';
+                }
             });
         });
     }
 
+    // Jalankan fungsi jika di halaman yang benar
     if (moviesGrid && seriesGrid) {
         fetchAndDisplayHomepageContent();
     }
