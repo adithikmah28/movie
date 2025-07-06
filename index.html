@@ -4,41 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BroFlix - Nonton Film & Series Sub Indo Gratis</title>
-    
-    <!-- === KEYWORD SEO === -->
     <meta name="description" content="BroFlix adalah situs nonton film online gratis dengan subtitle Indonesia. Streaming ribuan film box office, drama korea, dan series tv terbaru tanpa iklan mengganggu.">
     <meta name="keywords" content="nonton film, streaming film, download film, film online, sub indo, nonton gratis, broflix, film terbaru, box office, drama korea">
-    <!-- === AKHIR KEYWORD SEO === -->
-
     <link rel="stylesheet" href="style.css">
+    <!-- Menggunakan Font Awesome untuk ikon, lebih bagus dari teks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="menu-toggle" id="menu-toggle">☰</div>
         <a href="index.html" class="logo">BroFlix</a>
-        <div class="header-placeholder"></div>
+        <!-- Navigasi pindah ke sini agar lebih rapi -->
+        <nav class="main-nav">
+            <!-- Dropdown Genre -->
+            <div class="custom-dropdown" id="genre-dropdown">
+                <button class="dropdown-toggle">
+                    <i class="fa-solid fa-masks-theater"></i> Genre <i class="fa-solid fa-caret-down"></i>
+                </button>
+                <div class="dropdown-menu" id="genre-menu">
+                    <!-- Opsi diisi oleh JS -->
+                </div>
+            </div>
+            <!-- Dropdown Negara -->
+            <div class="custom-dropdown" id="country-dropdown">
+                <button class="dropdown-toggle">
+                    <i class="fa-solid fa-globe"></i> Negara <i class="fa-solid fa-caret-down"></i>
+                </button>
+                <div class="dropdown-menu" id="country-menu">
+                    <!-- Opsi diisi oleh JS -->
+                </div>
+            </div>
+        </nav>
     </header>
 
-    <nav class="sidebar" id="sidebar">
-        <!-- Pencarian masih di sini -->
-    </nav>
-    <div class="overlay" id="overlay"></div>
-
     <main>
-        <!-- === FILTER DROPDOWN BARU === -->
-        <div class="filter-container">
-            <select id="genre-filter">
-                <option value="all">Semua Genre</option>
-                <!-- Opsi genre akan diisi oleh JavaScript -->
-            </select>
-            <select id="country-filter">
-                <option value="all">Semua Negara</option>
-                <!-- Opsi negara akan diisi oleh JavaScript -->
-            </select>
-        </div>
-        <!-- === AKHIR FILTER DROPDOWN === -->
-
-        <!-- === GRID UTAMA UNTUK SEMUA FILM === -->
+        <h2 id="grid-title">Semua Film</h2>
         <div class="movie-grid" id="all-movies-grid">
             <!-- Poster film akan dimuat di sini oleh JavaScript -->
         </div>
