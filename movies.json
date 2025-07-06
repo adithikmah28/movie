@@ -14,20 +14,6 @@
     "country": "USA"
   },
   {
-    "id": 2,
-    "type": "movie",
-    "title": "Inception",
-    "year": 2010,
-    "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/oYuLEt3zVCKq27gApcjBM6aybhr.jpg",
-    "iframeUrl": "https://vidsrc.to/embed/movie/tt1375666",
-    "quality": "HD",
-    "rating": 8.8,
-    "actors": ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Elliot Page"],
-    "director": "Christopher Nolan",
-    "genre": ["Action", "Sci-Fi", "Adventure"],
-    "country": "USA"
-  },
-  {
     "id": 5,
     "type": "series",
     "title": "Breaking Bad",
@@ -36,10 +22,7 @@
     "tmdb_id": "1396",
     "seasons": [
       { "season_number": 1, "total_episodes": 7 },
-      { "season_number": 2, "total_episodes": 13 },
-      { "season_number": 3, "total_episodes": 13 },
-      { "season_number": 4, "total_episodes": 13 },
-      { "season_number": 5, "total_episodes": 16 }
+      { "season_number": 2, "total_episodes": 13 }
     ],
     "quality": "HD",
     "rating": 9.5,
@@ -58,12 +41,7 @@
     "seasons": [
         { "season_number": 1, "total_episodes": 10 },
         { "season_number": 2, "total_episodes": 10 },
-        { "season_number": 3, "total_episodes": 10 },
-        { "season_number": 4, "total_episodes": 10 },
-        { "season_number": 5, "total_episodes": 10 },
-        { "season_number": 6, "total_episodes": 10 },
-        { "season_number": 7, "total_episodes": 7 },
-        { "season_number": 8, "total_episodes": 6 }
+        { "season_number": 3, "total_episodes": 10 }
     ],
     "quality": "HD",
     "rating": 8.4,
