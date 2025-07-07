@@ -75,33 +75,17 @@ main { padding: 20px 30px; }
 #modal-box p { margin: 15px 0 25px 0; font-size: 1.1em; line-height: 1.5; color: var(--light-color); }
 #modal-ad-link { display: inline-block; background-color: #28a745; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 1.2em; cursor: pointer; transition: background-color 0.2s; }
 #modal-ad-link:hover { background-color: #218838; }
-
-/* === PAGINATION === */
 .pagination { display: flex; justify-content: center; align-items: center; margin-top: 40px; gap: 8px; flex-wrap: wrap; }
 .page-item { color: var(--light-color); background-color: #2a2a2a; padding: 10px 15px; text-decoration: none; border-radius: 5px; transition: background-color 0.2s; font-weight: bold; }
 .page-item:hover { background-color: #444; } .page-item.active { background-color: var(--primary-color); color: white; cursor: default; }
 
-/* === RESPONSIVE & FOOTER === */
 @media (max-width: 768px) {
     header { flex-wrap: wrap; }
     .header-center { order: -1; flex: 1 1 100%; text-align: center; padding-bottom: 10px; }
     .header-left, .header-right { flex: 1 1 auto; }
     #header-search-input, #list-search-input { max-width: 100%; }
-    
-    /* --- BAGIAN YANG DIPERBAIKI --- */
-    .movie-grid {
-        /* Ukuran minimal poster dikecilkan agar lebih banyak muat */
-        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-        /* Jarak antar poster dikurangi */
-        gap: 20px 10px;
-    }
-    .movie-title {
-        /* Ukuran font judul disesuaikan dengan poster yang lebih kecil */
-        font-size: 0.8em;
-        margin-top: 8px;
-    }
-    /* --- AKHIR BAGIAN YANG DIPERBAIKI --- */
-
+    .movie-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 20px 10px; }
+    .movie-title { font-size: 0.8em; margin-top: 8px; }
     #stream-movie-title { font-size: 1.4em; padding: 10px 15px; }
 }
 footer { text-align: center; padding: 20px; margin-top: 40px; border-top: 1px solid #333; }
