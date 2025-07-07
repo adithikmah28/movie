@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sedang Menonton... | BroFlix</title>
+
+    <!-- === TAMBAHKAN FAVICON DI SINI === -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- ... (sisa kode body tetap sama) ... -->
     <header>
         <a href="index.html" class="back-button">← Kembali</a>
         <a href="index.html" class="logo">BroFlix</a>
@@ -21,7 +26,6 @@
             <div class="video-player-wrapper">
                 <iframe id="video-iframe" frameborder="0" allowfullscreen></iframe>
             </div>
-            <!-- Overlay ini akan hilang setelah iklan diklik -->
             <div id="video-lock-overlay"></div> 
         </div>
 
@@ -50,10 +54,8 @@
         </div>
     </main>
 
-    <!-- === POPUP MODAL IKLAN YANG MENGUNCI HALAMAN === -->
     <div id="modal-backdrop">
         <div id="modal-box">
-            <!-- Tombol close sudah dihapus -->
             <h3>Nonton Gratis?</h3>
             <p>Cukup klik iklan di bawah ini sekali untuk membuka pemutar video. Terima kasih telah mendukung kami!</p>
             <a href="GANTI_DENGAN_LINK_ADSTERRA_KAMU" id="modal-ad-link" target="_blank">
@@ -61,7 +63,6 @@
             </a>
         </div>
     </div>
-    <!-- === AKHIR POPUP MODAL === -->
 
     <script src="stream.js"></script>
 </body>
