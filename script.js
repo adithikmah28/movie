@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Logika untuk Menu Negara (DENGAN PERBAIKAN) ---
+    // --- Logika Menu Negara (DENGAN UPGRADE UNTUK MULTI-NEGARA) ---
     const countryMenuToggle = document.getElementById('country-menu-toggle');
     const countrySubmenu = document.getElementById('country-submenu');
 
@@ -63,10 +63,13 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('movies.json');
             const data = await response.json();
-            const countries = [...new Set(data.map(item => item.country))].sort();
+            
+            // UPGRADE: Gunakan flatMap untuk mengambil semua negara dari dalam array
+            const allCountries = data.flatMap(item => item.country);
+            const uniqueCountries = [...new Set(allCountries)].sort();
             
             countrySubmenu.innerHTML = ''; 
-            countries.forEach(country => {
+            uniqueCountries.forEach(country => {
                 const li = document.createElement('li');
                 li.innerHTML = `<a href="list.html?country=${encodeURIComponent(country)}">${country}</a>`;
                 countrySubmenu.appendChild(li);
@@ -79,16 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (countryMenuToggle) {
         countryMenuToggle.addEventListener('click', (event) => {
-            // === BAGIAN YANG DIPERBAIKI ===
-            // Cek apakah yang diklik adalah link di dalam submenu (bukan link utama "Negara")
             if (event.target.closest('#country-submenu')) {
-                // Jika ya, jangan lakukan apa-apa. Biarkan link bekerja normal.
                 return;
             }
-            // Jika yang diklik adalah bagian lain dari menu (misal: "Negara ▾"), baru jalankan perintah ini
             event.preventDefault();
             countryMenuToggle.classList.toggle('active');
-            // === AKHIR BAGIAN PERBAIKAN ===
         });
         populateCountryMenu();
     }
