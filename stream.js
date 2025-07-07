@@ -1,14 +1,53 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const videoIframe = document.getElementById('video-iframe'), titleEl = document.getElementById('stream-movie-title'), adOverlay = document.getElementById('ad-overlay'), adLink = document.getElementById('ad-link'), qualityEl = document.getElementById('detail-quality'), genreEl = document.getElementById('detail-genre'), actorsEl = document.getElementById('detail-actors'), directorEl = document.getElementById('detail-director'), countryEl = document.getElementById('detail-country'), synopsisEl = document.getElementById('detail-synopsis'), seriesSelector = document.getElementById('series-selector'), seasonButtons = document.getElementById('season-buttons'), episodeContainer = document.getElementById('episode-container'), episodeButtons = document.getElementById('episode-buttons');
+    // --- Elemen Halaman ---
+    const videoIframe = document.getElementById('video-iframe');
+    const titleEl = document.getElementById('stream-movie-title');
+    // Elemen baru untuk popup
+    const videoPlayOverlay = document.getElementById('video-play-overlay');
+    const modalBackdrop = document.getElementById('modal-backdrop');
+    const modalCloseBtn = document.getElementById('modal-close');
+    const modalAdLink = document.getElementById('modal-ad-link');
+    // Detail & Series
+    const qualityEl = document.getElementById('detail-quality'), genreEl = document.getElementById('detail-genre'), actorsEl = document.getElementById('detail-actors'), directorEl = document.getElementById('detail-director'), countryEl = document.getElementById('detail-country'), synopsisEl = document.getElementById('detail-synopsis'), seriesSelector = document.getElementById('series-selector'), seasonButtons = document.getElementById('season-buttons'), episodeContainer = document.getElementById('episode-container'), episodeButtons = document.getElementById('episode-buttons');
 
+    // --- Logika Popup Iklan ---
+    function showAdPopup() {
+        modalBackdrop.classList.remove('hide');
+    }
+    function hideAdPopup() {
+        modalBackdrop.classList.add('hide');
+    }
+    function unlockPlayer() {
+        hideAdPopup();
+        videoPlayOverlay.classList.add('hide');
+    }
+
+    if (videoPlayOverlay) videoPlayOverlay.addEventListener('click', showAdPopup);
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', hideAdPopup);
+    if (modalAdLink) {
+        modalAdLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.open(modalAdLink.href, '_blank');
+            unlockPlayer();
+        });
+    }
+
+    // --- Logika Memuat Data Film/Series ---
     function changeVideo(tmdbId, s, e) { videoIframe.src = `https://vidsrc.to/embed/tv/${tmdbId}/${s}-${e}`; }
-
     function generateEpisodeButtons(s, totalEp, tmdbId) {
         episodeContainer.classList.remove('hide'); episodeButtons.innerHTML = '';
         for (let i = 1; i <= totalEp; i++) {
             const btn = document.createElement('button');
             btn.className = 'se-button'; btn.textContent = i;
-            btn.addEventListener('click', () => { document.querySelectorAll('#episode-buttons .se-button').forEach(b => b.classList.remove('active')); btn.classList.add('active'); changeVideo(tmdbId, s, i); });
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#episode-buttons .se-button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                changeVideo(tmdbId, s, i);
+                // Tampilkan lagi overlay jika belum diklik
+                if (!videoPlayOverlay.classList.contains('hide')) {
+                     videoPlayOverlay.classList.remove('hide');
+                }
+            });
             episodeButtons.appendChild(btn);
         }
         if (episodeButtons.querySelector('.se-button')) {
@@ -26,12 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data) {
                 titleEl.textContent = `${data.title} (${data.year})`;
                 document.title = `Nonton ${data.title} (${data.year}) - BroFlix`;
-                qualityEl.textContent = data.quality;
-                genreEl.textContent = data.genre.join(', ');
-                actorsEl.textContent = data.actors.join(', ');
-                directorEl.textContent = data.director;
-                countryEl.textContent = data.country;
-                synopsisEl.textContent = data.synopsis || 'Sinopsis untuk film ini tidak tersedia.';
+                qualityEl.textContent = data.quality; genreEl.textContent = data.genre.join(', '); actorsEl.textContent = data.actors.join(', '); directorEl.textContent = data.director; countryEl.textContent = data.country; synopsisEl.textContent = data.synopsis || 'Sinopsis untuk film ini tidak tersedia.';
 
                 if (data.type === 'series' && data.seasons) {
                     seriesSelector.classList.remove('hide');
@@ -56,6 +90,5 @@ document.addEventListener('DOMContentLoaded', () => {
             titleEl.textContent = "Gagal memuat data.";
         }
     }
-    adLink.addEventListener('click', (e) => { e.preventDefault(); window.open(adLink.href, '_blank'); adOverlay.style.display = 'none'; });
     getMovieData();
 });
