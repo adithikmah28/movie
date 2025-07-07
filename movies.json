@@ -15,6 +15,21 @@
     "synopsis": "Ketika ancaman yang dikenal sebagai Joker muncul dari masa lalunya yang misterius, dia membuat kekacauan di kota Gotham. The Dark Knight harus menerima salah satu ujian psikologis dan fisik terbesar dari kemampuannya untuk melawan ketidakadilan."
   },
   {
+    "id": 2,
+    "type": "movie",
+    "title": "Badarawuhi di Desa Penari",
+    "year": 2024,
+    "poster": "https://image.tmdb.org/t/p/original/2gACO8YojtfEzDhQT6LkKFW5bCa.jpg",
+    "iframeUrl": "https://vidlink.pro/movie/1176166",
+    "quality": "HD",
+    "rating": 6.0,
+    "actors": ["Maudy Effrosina", "Aulia Sarah", "Jourdy Pranata"],
+    "director": "Kimo Stamboel",
+    "genre": ["Horror", "Mystery", "Thriller"],
+    "country": "Indonesia",
+    "synopsis": "Desa ini masih menyimpan banyak misteri. Sepotong demi sepotong misteri terungkap, termasuk teror dari entitas yang paling ditakuti yakni Badarawuhi."
+  },
+  {
     "id": 5,
     "type": "series",
     "title": "Breaking Bad",
