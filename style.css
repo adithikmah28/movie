@@ -2,9 +2,9 @@
 body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--dark-color); color: var(--light-color); margin: 0; padding: 0; }
 .hide { display: none !important; }
 
-/* === HEADER BARU (Dekstop & Mobile) === */
+/* === HEADER FINAL === */
 header { 
-    padding: 10px 15px; /* Sedikit dikurangi padding horizontalnya */
+    padding: 10px 15px;
     background-color: #1a1a1a; 
     position: sticky; 
     top: 0; 
@@ -17,14 +17,13 @@ header {
     border-bottom: 1px solid #333; 
     gap: 15px; 
 }
-.header-left, .header-right { 
-    flex: 1; /* Memberi ruang yang sama di kiri dan kanan */
-}
-.header-center { 
-    flex: 2; /* Memberi ruang lebih besar untuk logo di tengah */
-    text-align: center; 
+.header-left { 
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Jarak antara menu dan logo */
 }
 .header-right { 
+    flex: 1; /* Biarkan search bar mengisi sisa ruang */
     display: flex; 
     justify-content: flex-end; 
 }
@@ -36,12 +35,13 @@ header {
 }
 .logo { 
     color: var(--primary-color); 
-    font-size: 2em; 
+    font-size: 1.8em; /* Ukuran logo sedikit disesuaikan */
     font-weight: bold; 
     text-decoration: none; 
 }
 #header-search-form, #header-search-form-list { 
-    width: 100%; 
+    width: 100%;
+    max-width: 350px;
 }
 #header-search-input, #list-search-input { 
     width: 100%; 
@@ -128,28 +128,13 @@ main { padding: 20px 30px; }
 
 /* === RESPONSIVE & FOOTER === */
 @media (max-width: 768px) {
-    /* === ATURAN BARU UNTUK HEADER MOBILE === */
-    header {
-        flex-wrap: nowrap; /* Mencegah item pindah ke bawah */
-        padding: 10px;
-    }
-    .header-center {
-        order: 0; /* Kembalikan ke urutan normal */
-        padding-bottom: 0;
-        flex-grow: 0; /* Jangan biarkan logo memakan banyak tempat */
-    }
     .logo {
         font-size: 1.5em; /* Kecilkan logo di mobile */
-    }
-    .header-left, .header-right {
-        flex: 1 1 0; /* Biarkan kiri dan kanan mengisi ruang sisa */
     }
     #header-search-input, #list-search-input {
         padding: 6px 10px;
         font-size: 0.9em;
     }
-    /* === AKHIR ATURAN BARU HEADER MOBILE === */
-
     .movie-grid {
         grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
         gap: 20px 10px;
