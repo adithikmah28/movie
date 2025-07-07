@@ -22,10 +22,12 @@
 
     <main class="stream-container">
         <h1 id="stream-movie-title">Memuat judul...</h1>
+        
         <div class="video-container">
             <div class="video-player-wrapper">
                 <iframe id="video-iframe" frameborder="0" allowfullscreen></iframe>
             </div>
+            <!-- Overlay Iklan HARUS di dalam video-container -->
             <div id="ad-overlay">
                 <div class="ad-box">
                     <h3>Nonton Gratis?</h3>
@@ -34,6 +36,7 @@
                 </div>
             </div>
         </div>
+
         <div id="series-selector" class="hide">
             <div class="season-list">
                 <h3>Pilih Season:</h3>
@@ -44,6 +47,7 @@
                 <div id="episode-buttons" class="button-group"></div>
             </div>
         </div>
+
         <div class="movie-details">
             <h2>Detail Film</h2>
             <p><strong>Kualitas:</strong> <span id="detail-quality">...</span></p>
@@ -53,6 +57,7 @@
             <p><strong>Negara:</strong> <span id="detail-country">...</span></p>
         </div>
     </main>
+    
     <script src="stream.js"></script>
 </body>
 </html>
