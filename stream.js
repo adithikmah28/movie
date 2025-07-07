@@ -1,29 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Elemen Halaman ---
+    // Definisikan semua elemen di awal
     const videoIframe = document.getElementById('video-iframe');
     const titleEl = document.getElementById('stream-movie-title');
-    // Elemen baru untuk popup
-    const videoPlayOverlay = document.getElementById('video-play-overlay');
+    const videoLockOverlay = document.getElementById('video-lock-overlay');
     const modalBackdrop = document.getElementById('modal-backdrop');
-    const modalCloseBtn = document.getElementById('modal-close');
     const modalAdLink = document.getElementById('modal-ad-link');
-    // Detail & Series
-    const qualityEl = document.getElementById('detail-quality'), genreEl = document.getElementById('detail-genre'), actorsEl = document.getElementById('detail-actors'), directorEl = document.getElementById('detail-director'), countryEl = document.getElementById('detail-country'), synopsisEl = document.getElementById('detail-synopsis'), seriesSelector = document.getElementById('series-selector'), seasonButtons = document.getElementById('season-buttons'), episodeContainer = document.getElementById('episode-container'), episodeButtons = document.getElementById('episode-buttons');
+    const qualityEl = document.getElementById('detail-quality');
+    const genreEl = document.getElementById('detail-genre');
+    const actorsEl = document.getElementById('detail-actors');
+    const directorEl = document.getElementById('detail-director');
+    const countryEl = document.getElementById('detail-country');
+    const synopsisEl = document.getElementById('detail-synopsis');
+    const seriesSelector = document.getElementById('series-selector');
+    const seasonButtons = document.getElementById('season-buttons');
+    const episodeContainer = document.getElementById('episode-container');
+    const episodeButtons = document.getElementById('episode-buttons');
 
-    // --- Logika Popup Iklan ---
-    function showAdPopup() {
-        modalBackdrop.classList.remove('hide');
-    }
-    function hideAdPopup() {
-        modalBackdrop.classList.add('hide');
-    }
+    // --- Logika Kunci Iklan ---
     function unlockPlayer() {
-        hideAdPopup();
-        videoPlayOverlay.classList.add('hide');
+        modalBackdrop.classList.add('hide'); // Sembunyikan popup
+        videoLockOverlay.classList.add('hide'); // Hapus overlay transparan di atas video
     }
 
-    if (videoPlayOverlay) videoPlayOverlay.addEventListener('click', showAdPopup);
-    if (modalCloseBtn) modalCloseBtn.addEventListener('click', hideAdPopup);
     if (modalAdLink) {
         modalAdLink.addEventListener('click', (e) => {
             e.preventDefault();
@@ -33,20 +31,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Logika Memuat Data Film/Series ---
-    function changeVideo(tmdbId, s, e) { videoIframe.src = `https://vidsrc.to/embed/tv/${tmdbId}/${s}-${e}`; }
+    function changeVideo(tmdbId, s, e) {
+        if (videoIframe) {
+            videoIframe.src = `https://vidsrc.to/embed/tv/${tmdbId}/${s}-${e}`;
+        }
+    }
+
     function generateEpisodeButtons(s, totalEp, tmdbId) {
-        episodeContainer.classList.remove('hide'); episodeButtons.innerHTML = '';
+        episodeContainer.classList.remove('hide');
+        episodeButtons.innerHTML = '';
         for (let i = 1; i <= totalEp; i++) {
             const btn = document.createElement('button');
-            btn.className = 'se-button'; btn.textContent = i;
+            btn.className = 'se-button';
+            btn.textContent = i;
             btn.addEventListener('click', () => {
                 document.querySelectorAll('#episode-buttons .se-button').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 changeVideo(tmdbId, s, i);
-                // Tampilkan lagi overlay jika belum diklik
-                if (!videoPlayOverlay.classList.contains('hide')) {
-                     videoPlayOverlay.classList.remove('hide');
-                }
             });
             episodeButtons.appendChild(btn);
         }
@@ -57,38 +58,60 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function getMovieData() {
         const id = new URLSearchParams(window.location.search).get('id');
-        if (!id) { return titleEl.textContent = "Film tidak ditemukan!"; }
+        if (!id) {
+            if (titleEl) titleEl.textContent = "Film tidak ditemukan!";
+            modalBackdrop.classList.add('hide'); // Sembunyikan popup jika film tidak ada
+            return;
+        }
+
         try {
             const response = await fetch('movies.json');
+            if (!response.ok) throw new Error('Gagal fetch movies.json');
             const movies = await response.json();
             const data = movies.find(m => m.id == id);
-            if (data) {
-                titleEl.textContent = `${data.title} (${data.year})`;
-                document.title = `Nonton ${data.title} (${data.year}) - BroFlix`;
-                qualityEl.textContent = data.quality; genreEl.textContent = data.genre.join(', '); actorsEl.textContent = data.actors.join(', '); directorEl.textContent = data.director; countryEl.textContent = data.country; synopsisEl.textContent = data.synopsis || 'Sinopsis untuk film ini tidak tersedia.';
 
+            if (data) {
+                // Isi semua detail
+                if(titleEl) titleEl.textContent = `${data.title} (${data.year})`;
+                if(document) document.title = `Nonton ${data.title} (${data.year}) - BroFlix`;
+                if(qualityEl) qualityEl.textContent = data.quality;
+                if(genreEl) genreEl.textContent = data.genre.join(', ');
+                if(actorsEl) actorsEl.textContent = data.actors.join(', ');
+                if(directorEl) directorEl.textContent = data.director;
+                if(countryEl) countryEl.textContent = data.country;
+                if(synopsisEl) synopsisEl.textContent = data.synopsis || 'Sinopsis untuk film ini tidak tersedia.';
+
+                // Logika untuk Movie vs Series
                 if (data.type === 'series' && data.seasons) {
                     seriesSelector.classList.remove('hide');
                     seasonButtons.innerHTML = '';
                     data.seasons.forEach(season => {
                         const btn = document.createElement('button');
-                        btn.className = 'se-button'; btn.textContent = `Season ${season.season_number}`;
-                        btn.addEventListener('click', () => { document.querySelectorAll('#season-buttons .se-button').forEach(b => b.classList.remove('active')); btn.classList.add('active'); generateEpisodeButtons(season.season_number, season.total_episodes, data.tmdb_id); });
+                        btn.className = 'se-button';
+                        btn.textContent = `Season ${season.season_number}`;
+                        btn.addEventListener('click', () => {
+                            document.querySelectorAll('#season-buttons .se-button').forEach(b => b.classList.remove('active'));
+                            btn.classList.add('active');
+                            generateEpisodeButtons(season.season_number, season.total_episodes, data.tmdb_id);
+                        });
                         seasonButtons.appendChild(btn);
                     });
                     if (seasonButtons.querySelector('.se-button')) {
                         seasonButtons.querySelector('.se-button').click();
                     }
                 } else {
-                    videoIframe.src = data.iframeUrl;
+                    if (videoIframe) videoIframe.src = data.iframeUrl;
                 }
             } else {
-                titleEl.textContent = "Film tidak ditemukan!";
+                if(titleEl) titleEl.textContent = "Film tidak ditemukan!";
+                modalBackdrop.classList.add('hide');
             }
         } catch (error) {
             console.error('Gagal memuat data:', error);
-            titleEl.textContent = "Gagal memuat data.";
+            if(titleEl) titleEl.textContent = "Gagal memuat data.";
+            modalBackdrop.classList.add('hide');
         }
     }
+
     getMovieData();
 });
