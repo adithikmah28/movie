@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Bagian Utama: Menampilkan Konten di Halaman Depan ---
     const moviesGrid = document.getElementById('movies-grid');
     const seriesGrid = document.getElementById('series-grid');
 
@@ -24,9 +25,64 @@ document.addEventListener('DOMContentLoaded', () => {
             if (seriesGrid) seriesGrid.innerHTML = '<p>Gagal memuat series.</p>';
         }
     }
-    fetchAndDisplayHomepageContent();
+    
+    if (moviesGrid && seriesGrid) {
+        fetchAndDisplayHomepageContent();
+    }
 
-    const menuToggle = document.getElementById('menu-toggle'), sidebar = document.getElementById('sidebar'), overlay = document.getElementById('overlay'), searchInput = document.getElementById('search-input');
-    if(menuToggle && sidebar && overlay) { menuToggle.addEventListener('click', () => { sidebar.classList.toggle('open'); overlay.classList.toggle('show'); }); overlay.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('show'); }); }
-    if(searchInput) { searchInput.addEventListener('input', (e) => { const term = e.target.value.toLowerCase().trim(); document.querySelectorAll('.movie-item').forEach(item => { item.style.display = item.querySelector('.movie-title').textContent.toLowerCase().includes(term) ? 'flex' : 'none'; }); }); }
+    // --- Bagian Sidebar dan Navigasi ---
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const searchInput = document.getElementById('search-input');
+    
+    if(menuToggle && sidebar && overlay) {
+        menuToggle.addEventListener('click', () => { sidebar.classList.toggle('open'); overlay.classList.toggle('show'); });
+        overlay.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('show'); });
+    }
+    
+    if(searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase().trim();
+            document.querySelectorAll('.movie-item').forEach(item => {
+                const titleElement = item.querySelector('.movie-title');
+                if (titleElement) {
+                     item.style.display = titleElement.textContent.toLowerCase().includes(term) ? 'flex' : 'none';
+                }
+            });
+        });
+    }
+
+    // --- Bagian Baru: Logika untuk Menu Negara ---
+    const countryMenuToggle = document.getElementById('country-menu-toggle');
+    const countrySubmenu = document.getElementById('country-submenu');
+
+    async function populateCountryMenu() {
+        if (!countrySubmenu) return;
+
+        try {
+            const response = await fetch('movies.json');
+            const data = await response.json();
+            const countries = [...new Set(data.map(item => item.country))].sort();
+            
+            countrySubmenu.innerHTML = ''; // Kosongkan "Memuat..."
+
+            countries.forEach(country => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="list.html?country=${encodeURIComponent(country)}">${country}</a>`;
+                countrySubmenu.appendChild(li);
+            });
+        } catch (error) {
+            console.error('Gagal memuat daftar negara:', error);
+            countrySubmenu.innerHTML = '<li><a href="#">Gagal memuat</a></li>';
+        }
+    }
+
+    if (countryMenuToggle) {
+        countryMenuToggle.addEventListener('click', (event) => {
+            event.preventDefault();
+            countryMenuToggle.classList.toggle('active');
+        });
+        populateCountryMenu();
+    }
 });
