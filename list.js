@@ -2,14 +2,91 @@ document.addEventListener('DOMContentLoaded', () => {
     const listGrid = document.getElementById('list-grid');
     const listTitle = document.getElementById('list-title');
     const paginationControls = document.getElementById('pagination-controls');
+    const listSearchInput = document.getElementById('list-search-input');
 
-    if (!listGrid || !listTitle || !paginationControls) {
-        console.error('Elemen penting tidak ditemukan di list.html!');
-        return;
-    }
+    if (!listGrid || !listTitle || !paginationControls) return;
 
     const ITEMS_PER_PAGE = 20;
+    let allData = []; // Simpan semua data untuk pencarian real-time
 
+    function createContentItem(item) { /* ... fungsinya sama ... */ }
+    function setupPagination(totalItems, currentPage, params) { /* ... fungsinya sama ... */ }
+
+    function displayContent(content, currentPage, params) {
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+        const endIndex = startIndex + ITEMS_PER_PAGE;
+        const contentForPage = content.slice(startIndex, endIndex);
+        listGrid.innerHTML = '';
+        if (contentForPage.length === 0) {
+            listGrid.innerHTML = `<p style="color: #ccc; grid-column: 1 / -1;">Tidak ada konten yang ditemukan.</p>`;
+        } else {
+            contentForPage.forEach(item => listGrid.appendChild(createContentItem(item)));
+        }
+        setupPagination(content.length, currentPage, params);
+    }
+    
+    async function loadAndFilterContent() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const type = urlParams.get('type');
+        const country = urlParams.get('country');
+        const search = urlParams.get('search');
+        const currentPage = parseInt(urlParams.get('page')) || 1;
+
+        // Atur judul
+        let pageTitle = "Hasil Pencarian";
+        if (search) {
+             pageTitle = `Hasil untuk "${search}"`;
+             listTitle.innerHTML = `<i class="fa-solid fa-search"></i> ${pageTitle}`;
+        } else if (country) {
+            pageTitle = `Film & Series dari ${country}`;
+            listTitle.innerHTML = `<i class="fa-solid fa-globe"></i> ${pageTitle}`;
+        } else if (type) {
+            pageTitle = `Semua ${type === 'movie' ? 'Film' : 'Serial TV'}`;
+            listTitle.innerHTML = `<i class="fa-solid fa-${type === 'movie' ? 'film' : 'tv'}"></i> ${pageTitle}`;
+        }
+        document.title = `${pageTitle} | BroFlix`;
+        
+        try {
+            if (allData.length === 0) {
+                const response = await fetch('movies.json');
+                if (!response.ok) throw new Error('Gagal fetch');
+                allData = await response.json();
+            }
+            
+            let filteredContent = allData;
+
+            if (search) {
+                filteredContent = allData.filter(item => item.title.toLowerCase().includes(search.toLowerCase()));
+                if(listSearchInput) listSearchInput.value = search;
+            } else if (country) {
+                filteredContent = allData.filter(item => item.country === country);
+            } else if (type) {
+                filteredContent = allData.filter(item => item.type === type);
+            }
+            
+            displayContent(filteredContent, currentPage, urlParams);
+
+        } catch (error) {
+            console.error('Gagal memuat list konten:', error);
+            listGrid.innerHTML = `<p>Gagal memuat data.</p>`;
+        }
+    }
+
+    // Event listener untuk pencarian real-time di halaman list
+    if (listSearchInput) {
+        listSearchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            const filtered = allData.filter(item => item.title.toLowerCase().includes(searchTerm));
+            const params = new URLSearchParams(); // Buat params kosong untuk display
+            params.set('search', searchTerm);
+            displayContent(filtered, 1, params); // Selalu reset ke halaman 1 saat mencari
+        });
+    }
+
+    // Muat konten saat halaman dibuka
+    loadAndFilterContent();
+
+    // Re-use createContentItem and setupPagination
     function createContentItem(item) {
         const itemElement = document.createElement('div');
         itemElement.classList.add('movie-item');
@@ -35,47 +112,4 @@ document.addEventListener('DOMContentLoaded', () => {
             paginationControls.appendChild(pageLink);
         }
     }
-
-    async function loadContent() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const type = urlParams.get('type');
-        const country = urlParams.get('country');
-        const currentPage = parseInt(urlParams.get('page')) || 1;
-
-        let pageTitle = "Daftar Konten";
-        if (country) {
-            pageTitle = `Film & Series dari ${country}`;
-            listTitle.innerHTML = `<i class="fa-solid fa-globe"></i> ${pageTitle}`;
-        } else if (type) {
-            pageTitle = `Semua ${type === 'movie' ? 'Film' : 'Serial TV'}`;
-            listTitle.innerHTML = `<i class="fa-solid fa-${type === 'movie' ? 'film' : 'tv'}"></i> ${pageTitle}`;
-        }
-        document.title = `${pageTitle} | BroFlix`;
-        
-        try {
-            const response = await fetch('movies.json');
-            if (!response.ok) throw new Error(`Gagal fetch: ${response.statusText}`);
-            const allContent = await response.json();
-            let filteredContent = allContent;
-            if (country) {
-                filteredContent = allContent.filter(item => item.country === country);
-            } else if (type) {
-                filteredContent = allContent.filter(item => item.type === type);
-            }
-            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-            const endIndex = startIndex + ITEMS_PER_PAGE;
-            const contentForPage = filteredContent.slice(startIndex, endIndex);
-            listGrid.innerHTML = '';
-            if (contentForPage.length === 0) {
-                listGrid.innerHTML = `<p style="color: #ccc; grid-column: 1 / -1;">Tidak ada konten yang ditemukan.</p>`;
-                return;
-            }
-            contentForPage.forEach(item => listGrid.appendChild(createContentItem(item)));
-            setupPagination(filteredContent.length, currentPage, urlParams);
-        } catch (error) {
-            console.error('Gagal memuat list konten:', error);
-            listGrid.innerHTML = `<p style="color: #ccc; grid-column: 1 / -1;">Gagal memuat data.</p>`;
-        }
-    }
-    loadContent();
 });
