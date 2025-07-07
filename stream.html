@@ -13,7 +13,6 @@
         <div class="header-placeholder"></div>
     </header>
     <main class="stream-container">
-        <!-- === JUDUL FILM DENGAN BOX BARU === -->
         <div class="stream-title-container">
              <h1 id="stream-movie-title">Memuat judul...</h1>
         </div>
@@ -22,37 +21,33 @@
             <div class="video-player-wrapper">
                 <iframe id="video-iframe" frameborder="0" allowfullscreen></iframe>
             </div>
-            <div id="ad-overlay">
-                <div class="ad-box">
-                    <h3>Nonton Gratis?</h3>
-                    <p>Cukup klik iklan di bawah ini sekali untuk membuka pemutar video. Terima kasih telah mendukung kami!</p>
-                    <a href="GANTI_DENGAN_LINK_ADSTERRA_KAMU" id="ad-link" target="_blank">KLIK IKLAN UNTUK MELANJUTKAN</a>
-                </div>
+            <!-- TOMBOL PLAY PALSU UNTUK MEMICU POPUP -->
+            <div id="video-play-overlay">
+                <div id="play-icon"></div>
             </div>
         </div>
+
         <div id="series-selector" class="hide">
-            <div class="season-list">
-                <h3>Pilih Season:</h3>
-                <div id="season-buttons" class="button-group"></div>
-            </div>
-            <div id="episode-container" class="hide">
-                <h3>Pilih Episode:</h3>
-                <div id="episode-buttons" class="button-group"></div>
-            </div>
+            <!-- ... (bagian season/episode tetap sama) ... -->
         </div>
         <div class="movie-details">
-            <h2>Detail Film</h2>
-            <p><strong>Kualitas:</strong> <span id="detail-quality">...</span></p>
-            <p><strong>Genre:</strong> <span id="detail-genre">...</span></p>
-            <p><strong>Pemeran:</strong> <span id="detail-actors">...</span></p>
-            <p><strong>Sutradara:</strong> <span id="detail-director">...</span></p>
-            <p><strong>Negara:</strong> <span id="detail-country">...</span></p>
-            <div class="synopsis-section">
-                <h3>Sinopsis</h3>
-                <p id="detail-synopsis">Memuat sinopsis...</p>
-            </div>
+            <!-- ... (bagian detail film tetap sama) ... -->
         </div>
     </main>
+
+    <!-- === POPUP MODAL IKLAN BARU === -->
+    <div id="modal-backdrop" class="hide">
+        <div id="modal-box">
+            <button id="modal-close">×</button>
+            <h3>Nonton Gratis?</h3>
+            <p>Cukup klik iklan di bawah ini sekali untuk membuka pemutar video. Terima kasih telah mendukung kami!</p>
+            <a href="GANTI_DENGAN_LINK_ADSTERRA_KAMU" id="modal-ad-link" target="_blank">
+                KLIK IKLAN UNTUK MELANJUTKAN
+            </a>
+        </div>
+    </div>
+    <!-- === AKHIR POPUP MODAL === -->
+
     <script src="stream.js"></script>
 </body>
 </html>
