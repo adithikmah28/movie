@@ -2,11 +2,11 @@
 body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--dark-color); color: var(--light-color); margin: 0; padding: 0; }
 .hide { display: none !important; }
 
-/* === HEADER BARU DENGAN SEARCH BAR === */
+/* === HEADER BARU (Berlaku untuk semua halaman) === */
 header { padding: 15px 20px; background-color: #1a1a1a; position: sticky; top: 0; width: 100%; z-index: 100; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
-.menu-toggle { font-size: 24px; cursor: pointer; color: var(--light-color); }
-header .logo { color: var(--primary-color); font-size: 2em; font-weight: bold; text-decoration: none; margin: 0 20px; }
-.search-container { display: flex; justify-content: flex-end; flex-grow: 1; }
+.menu-toggle, header .back-button { font-size: 24px; cursor: pointer; color: var(--light-color); text-decoration: none; flex: 1; text-align: left; }
+header .logo { color: var(--primary-color); font-size: 2em; font-weight: bold; text-decoration: none; text-align: center; }
+.search-container { flex: 1; display: flex; justify-content: flex-end; }
 header #search-input { padding: 8px 15px; border-radius: 20px; border: 1px solid #444; background-color: #222; color: var(--light-color); width: 220px; transition: all 0.3s ease-in-out; }
 header #search-input:focus { width: 300px; outline: none; border-color: var(--primary-color); background-color: #000; }
 
@@ -20,7 +20,7 @@ header #search-input:focus { width: 300px; outline: none; border-color: var(--pr
 main { padding: 20px 30px; }
 .movie-category { margin-bottom: 40px; }
 
-/* Style Menu Negara (Kembali ke Sidebar) */
+/* Style Menu Negara (Sidebar) */
 .sidebar .has-submenu > a { display: flex; justify-content: space-between; align-items: center; }
 .sidebar .has-submenu .arrow { font-size: 0.8em; transition: transform 0.3s ease-in-out; }
 .sidebar .has-submenu.active > a .arrow { transform: rotate(180deg); }
@@ -29,7 +29,7 @@ main { padding: 20px 30px; }
 .sidebar .submenu li a { font-size: 0.9em; padding: 10px 0; color: #ccc; }
 .sidebar .submenu li a:hover { color: var(--primary-color); }
 
-/* Konten Lainnya (Tidak banyak berubah) */
+/* Konten Lainnya */
 .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 .movie-category h2, #list-title { font-size: 1.5em; border-left: 4px solid var(--primary-color); padding-left: 15px; margin: 0; }
 #list-title, .movie-category h2 { margin-bottom: 20px; }
@@ -51,10 +51,10 @@ main { padding: 20px 30px; }
 #series-selector { background-color: #1a1a1a; padding: 20px; border-radius: 5px; margin-top: 25px; }
 footer { text-align: center; padding: 20px; margin-top: 40px; border-top: 1px solid #333; }
 
-/* ... (style lain yang tidak berubah seperti .video-container, .pagination, dll) ... */
+/* ... (style lain yang tidak berubah) ... */
 @media (max-width: 768px) {
-    header .logo { font-size: 1.5em; margin: 0 10px; }
-    header #search-input { width: 150px; }
-    header #search-input:focus { width: 180px; }
+    header .logo { font-size: 1.5em; }
+    header #search-input { width: 120px; font-size: 0.8em; }
+    header #search-input:focus { width: 150px; }
     .movie-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
 }
