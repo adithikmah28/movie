@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const listTitle = document.getElementById('list-title');
     const paginationControls = document.getElementById('pagination-controls');
 
-    // Jika elemen penting tidak ditemukan, hentikan skrip
     if (!listGrid || !listTitle || !paginationControls) {
         console.error('Elemen penting (list-grid, list-title, atau pagination-controls) tidak ditemukan di list.html!');
         if (listTitle) listTitle.textContent = 'Error: Elemen halaman tidak lengkap.';
@@ -12,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const ITEMS_PER_PAGE = 20;
 
-    // FUNGSI YANG HILANG SEBELUMNYA - MEMBUAT POSTER FILM
     function createContentItem(item) {
         const itemElement = document.createElement('div');
         itemElement.classList.add('movie-item');
@@ -33,15 +31,22 @@ document.addEventListener('DOMContentLoaded', () => {
         return itemElement;
     }
 
-    // FUNGSI YANG HILANG SEBELUMNYA - MEMBUAT TOMBOL HALAMAN
-    function setupPagination(totalItems, currentPage, type) {
+    function setupPagination(totalItems, currentPage, type, country) {
         paginationControls.innerHTML = '';
         const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-        if (totalPages <= 1) return; // Tidak perlu pagination jika hanya 1 halaman
+        if (totalPages <= 1) return;
 
         for (let i = 1; i <= totalPages; i++) {
             const pageLink = document.createElement('a');
-            pageLink.href = `list.html?type=${type}&page=${i}`;
+            
+            let link = 'list.html?';
+            if (country) {
+                link += `country=${encodeURIComponent(country)}&page=${i}`;
+            } else if (type) {
+                link += `type=${type}&page=${i}`;
+            }
+            
+            pageLink.href = link;
             pageLink.textContent = i;
             pageLink.classList.add('page-item');
             if (i === currentPage) {
@@ -51,21 +56,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Fungsi utama untuk memuat data
     async function loadContent() {
         const urlParams = new URLSearchParams(window.location.search);
-        const type = urlParams.get('type') || 'movie';
+        const type = urlParams.get('type');
+        const country = urlParams.get('country');
         const currentPage = parseInt(urlParams.get('page')) || 1;
 
-        document.title = `Daftar ${type === 'movie' ? 'Film' : 'Series'} - Halaman ${currentPage} | BroFlix`;
-        listTitle.innerHTML = `<i class="fa-solid fa-${type === 'movie' ? 'film' : 'tv'}"></i> Semua ${type === 'movie' ? 'Film' : 'Serial TV'}`;
+        let pageTitle = "Daftar Konten";
+        if (country) {
+            pageTitle = `Film & Series dari ${country}`;
+            listTitle.innerHTML = `<i class="fa-solid fa-globe"></i> ${pageTitle}`;
+        } else if (type) {
+            pageTitle = `Semua ${type === 'movie' ? 'Film' : 'Serial TV'}`;
+            listTitle.innerHTML = `<i class="fa-solid fa-${type === 'movie' ? 'film' : 'tv'}"></i> ${pageTitle}`;
+        }
+        document.title = `${pageTitle} | BroFlix`;
         
         try {
             const response = await fetch('movies.json');
             if (!response.ok) throw new Error(`Gagal fetch: ${response.statusText}`);
             
             const allContent = await response.json();
-            const filteredContent = allContent.filter(item => item.type === type);
+            let filteredContent = allContent;
+
+            if (country) {
+                filteredContent = allContent.filter(item => item.country === country);
+            } else if (type) {
+                filteredContent = allContent.filter(item => item.type === type);
+            }
             
             const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
             const endIndex = startIndex + ITEMS_PER_PAGE;
@@ -73,17 +91,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             listGrid.innerHTML = '';
             if (contentForPage.length === 0) {
-                listGrid.innerHTML = `<p style="color: #ccc; grid-column: 1 / -1;">Tidak ada konten yang ditemukan untuk kategori ini.</p>`;
+                listGrid.innerHTML = `<p style="color: #ccc; grid-column: 1 / -1;">Tidak ada konten yang ditemukan.</p>`;
                 return;
             }
 
-            // Bagian ini sekarang akan berjalan dengan benar
-            contentForPage.forEach(item => {
-                listGrid.appendChild(createContentItem(item));
-            });
-
-            // Bagian ini juga akan berjalan dengan benar
-            setupPagination(filteredContent.length, currentPage, type);
+            contentForPage.forEach(item => listGrid.appendChild(createContentItem(item)));
+            setupPagination(filteredContent.length, currentPage, type, country);
 
         } catch (error) {
             console.error('Gagal memuat list konten:', error);
