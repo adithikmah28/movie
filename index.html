@@ -11,16 +11,27 @@
     <header>
         <div class="menu-toggle" id="menu-toggle">☰</div>
         <a href="index.html" class="logo">BroFlix</a>
-        <div class="header-placeholder"></div>
+        
+        <!-- === SEARCH BAR PINDAH KE SINI === -->
+        <div class="search-container">
+             <input type="search" id="search-input" placeholder="Cari judul...">
+        </div>
     </header>
 
     <nav class="sidebar" id="sidebar">
-        <input type="search" id="search-input" placeholder="Cari film atau series...">
+        <!-- Search bar sudah dihapus dari sini -->
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="list.html?type=series">Series</a></li>
             <li><a href="list.html?type=movie">Movies</a></li>
-            <!-- Menu Negara sudah dihapus dari sini -->
+            
+            <!-- === MENU NEGARA KEMBALI KE SINI === -->
+            <li class="has-submenu" id="country-menu-toggle">
+                <a href="#">Negara <span class="arrow">▾</span></a>
+                <ul class="submenu" id="country-submenu">
+                    <li><a href="#">Memuat...</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
     <div class="overlay" id="overlay"></div>
@@ -41,15 +52,7 @@
             </div>
             <div class="movie-grid" id="series-grid"></div>
         </section>
-
-        <!-- === SEKSI BARU UNTUK NEGARA === -->
-        <section class="movie-category">
-            <h2><i class="fa-solid fa-globe"></i> Jelajahi Berdasarkan Negara</h2>
-            <div class="country-grid" id="country-buttons-container">
-                <!-- Tombol negara akan diisi oleh JavaScript -->
-            </div>
-        </section>
-        <!-- === AKHIR SEKSI BARU === -->
+        <!-- Seksi Negara di halaman utama sudah dihapus -->
     </main>
 
     <footer>
