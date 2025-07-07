@@ -45,6 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) { console.error('Gagal memuat data:', error); titleEl.textContent = "Gagal memuat data."; }
     }
 
-    adLink.addEventListener('click', (e) => { e.preventDefault(); window.open(adLink.href, '_blank'); adOverlay.style.display = 'none'; });
+    adLink.addEventListener('click', (e) => { 
+        e.preventDefault(); 
+        window.open(adLink.href, '_blank'); 
+        adOverlay.style.display = 'none'; // Cukup sembunyikan popup
+    });
+    
     getMovieData();
 });
