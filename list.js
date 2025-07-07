@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // === Ambil SEMUA elemen yang dibutuhkan, termasuk search input ===
     const listGrid = document.getElementById('list-grid');
     const listTitle = document.getElementById('list-title');
     const paginationControls = document.getElementById('pagination-controls');
+    const searchInput = document.getElementById('search-input'); // BARU
 
     if (!listGrid || !listTitle || !paginationControls) {
         console.error('Elemen penting (list-grid, list-title, atau pagination-controls) tidak ditemukan di list.html!');
@@ -78,10 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let filteredContent = allContent;
 
             if (country) {
-                // UPGRADE: Cek apakah daftar negara film mengandung negara yang dicari
-                filteredContent = allContent.filter(item => 
-                    Array.isArray(item.country) && item.country.includes(country)
-                );
+                filteredContent = allContent.filter(item => Array.isArray(item.country) && item.country.includes(country));
             } else if (type) {
                 filteredContent = allContent.filter(item => item.type === type);
             }
@@ -105,5 +104,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Panggil fungsi untuk memuat konten saat halaman dibuka
     loadContent();
+
+    // === TAMBAHKAN LOGIKA PENCARIAN DI SINI ===
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase().trim();
+            // Ambil semua item yang SEDANG DITAMPILKAN di grid
+            const itemsOnPage = listGrid.querySelectorAll('.movie-item');
+            
+            itemsOnPage.forEach(item => {
+                const titleElement = item.querySelector('.movie-title');
+                if (titleElement) {
+                    const title = titleElement.textContent.toLowerCase();
+                    // Sembunyikan atau tampilkan berdasarkan judul
+                    if (title.includes(term)) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+            });
+        });
+    }
 });
