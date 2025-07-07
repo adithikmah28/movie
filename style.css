@@ -4,9 +4,9 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-
 
 /* === HEADER BARU (Berlaku untuk semua halaman) === */
 header { padding: 15px 20px; background-color: #1a1a1a; position: sticky; top: 0; width: 100%; z-index: 100; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
-.menu-toggle, header .back-button { font-size: 24px; cursor: pointer; color: var(--light-color); text-decoration: none; flex: 1; text-align: left; }
+.menu-toggle, header .back-button { flex: 1; text-align: left; font-size: 24px; cursor: pointer; color: var(--light-color); text-decoration: none; }
 header .logo { color: var(--primary-color); font-size: 2em; font-weight: bold; text-decoration: none; text-align: center; }
-.search-container { flex: 1; display: flex; justify-content: flex-end; }
+.search-container, .header-placeholder { flex: 1; display: flex; justify-content: flex-end; } /* DITAMBAHKAN .header-placeholder */
 header #search-input { padding: 8px 15px; border-radius: 20px; border: 1px solid #444; background-color: #222; color: var(--light-color); width: 220px; transition: all 0.3s ease-in-out; }
 header #search-input:focus { width: 300px; outline: none; border-color: var(--primary-color); background-color: #000; }
 
@@ -51,7 +51,6 @@ main { padding: 20px 30px; }
 #series-selector { background-color: #1a1a1a; padding: 20px; border-radius: 5px; margin-top: 25px; }
 footer { text-align: center; padding: 20px; margin-top: 40px; border-top: 1px solid #333; }
 
-/* ... (style lain yang tidak berubah) ... */
 @media (max-width: 768px) {
     header .logo { font-size: 1.5em; }
     header #search-input { width: 120px; font-size: 0.8em; }
