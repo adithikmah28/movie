@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
-    const searchInput = document.getElementById('search-input'); // Tetap sama, karena ID tidak berubah
+    const searchInput = document.getElementById('search-input');
 
     // --- Fungsi Bantuan ---
     function createContentItem(item) {
@@ -21,8 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('movies.json');
             const data = await response.json();
-
-            // 1. Tampilkan Film dan Series di Halaman Utama
             const movies = data.filter(item => item.type === 'movie');
             const series = data.filter(item => item.type === 'series');
             if (moviesGrid) { moviesGrid.innerHTML = ''; movies.slice(0, 10).forEach(movie => moviesGrid.appendChild(createContentItem(movie))); }
@@ -38,17 +36,15 @@ document.addEventListener('DOMContentLoaded', () => {
         initializePage();
     }
 
-    // --- Logika Sidebar, Pencarian, dan Menu Negara ---
+    // --- Logika Sidebar dan Pencarian ---
     if(menuToggle && sidebar && overlay) {
         menuToggle.addEventListener('click', () => { sidebar.classList.toggle('open'); overlay.classList.toggle('show'); });
         overlay.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('show'); });
     }
     
-    // Logika Pencarian (bekerja untuk search bar di header)
     if(searchInput) {
         searchInput.addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase().trim();
-            // Pencarian ini akan menyembunyikan/menampilkan film di halaman utama
             document.querySelectorAll('.movie-item').forEach(item => {
                 const titleElement = item.querySelector('.movie-title');
                 if (titleElement) {
@@ -58,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Logika untuk Menu Negara (kembali ke sidebar)
+    // --- Logika untuk Menu Negara (DENGAN PERBAIKAN) ---
     const countryMenuToggle = document.getElementById('country-menu-toggle');
     const countrySubmenu = document.getElementById('country-submenu');
 
@@ -83,8 +79,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (countryMenuToggle) {
         countryMenuToggle.addEventListener('click', (event) => {
+            // === BAGIAN YANG DIPERBAIKI ===
+            // Cek apakah yang diklik adalah link di dalam submenu (bukan link utama "Negara")
+            if (event.target.closest('#country-submenu')) {
+                // Jika ya, jangan lakukan apa-apa. Biarkan link bekerja normal.
+                return;
+            }
+            // Jika yang diklik adalah bagian lain dari menu (misal: "Negara ▾"), baru jalankan perintah ini
             event.preventDefault();
             countryMenuToggle.classList.toggle('active');
+            // === AKHIR BAGIAN PERBAIKAN ===
         });
         populateCountryMenu();
     }
