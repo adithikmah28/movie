@@ -1,13 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // === Ambil SEMUA elemen yang dibutuhkan, termasuk search input ===
     const listGrid = document.getElementById('list-grid');
     const listTitle = document.getElementById('list-title');
     const paginationControls = document.getElementById('pagination-controls');
-    const searchInput = document.getElementById('search-input'); // BARU
 
     if (!listGrid || !listTitle || !paginationControls) {
-        console.error('Elemen penting (list-grid, list-title, atau pagination-controls) tidak ditemukan di list.html!');
-        if (listTitle) listTitle.textContent = 'Error: Elemen halaman tidak lengkap.';
+        console.error('Elemen penting tidak ditemukan di list.html!');
         return;
     }
 
@@ -16,37 +13,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function createContentItem(item) {
         const itemElement = document.createElement('div');
         itemElement.classList.add('movie-item');
-        itemElement.innerHTML = `
-            <div class="movie-poster">
-                <img src="${item.poster}" alt="${item.title}">
-                <div class="quality-tag quality-${item.quality.toLowerCase()}">${item.quality}</div>
-                <div class="rating">
-                    <span class="rating-star">⭐</span>
-                    <span>${item.rating.toFixed(1)}</span>
-                </div>
-            </div>
-            <p class="movie-title">${item.title} (${item.year})</p>
-        `;
-        itemElement.querySelector('.movie-poster').addEventListener('click', () => {
-            window.location.href = `stream.html?id=${item.id}`;
-        });
+        itemElement.innerHTML = `<div class="movie-poster"><img src="${item.poster}" alt="${item.title}"><div class="quality-tag quality-${item.quality.toLowerCase()}">${item.quality}</div><div class="rating"><span class="rating-star">⭐</span><span>${item.rating.toFixed(1)}</span></div></div><p class="movie-title">${item.title} (${item.year})</p>`;
+        itemElement.querySelector('.movie-poster').addEventListener('click', () => { window.location.href = `stream.html?id=${item.id}`; });
         return itemElement;
     }
 
-    function setupPagination(totalItems, currentPage, type, country) {
+    function setupPagination(totalItems, currentPage, params) {
         paginationControls.innerHTML = '';
         const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
         if (totalPages <= 1) return;
-
         for (let i = 1; i <= totalPages; i++) {
             const pageLink = document.createElement('a');
-            let link = 'list.html?';
-            if (country) {
-                link += `country=${encodeURIComponent(country)}&page=${i}`;
-            } else if (type) {
-                link += `type=${type}&page=${i}`;
-            }
-            pageLink.href = link;
+            const newParams = new URLSearchParams(params);
+            newParams.set('page', i);
+            pageLink.href = `list.html?${newParams.toString()}`;
             pageLink.textContent = i;
             pageLink.classList.add('page-item');
             if (i === currentPage) {
@@ -75,57 +55,27 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('movies.json');
             if (!response.ok) throw new Error(`Gagal fetch: ${response.statusText}`);
-            
             const allContent = await response.json();
             let filteredContent = allContent;
-
             if (country) {
-                filteredContent = allContent.filter(item => Array.isArray(item.country) && item.country.includes(country));
+                filteredContent = allContent.filter(item => item.country === country);
             } else if (type) {
                 filteredContent = allContent.filter(item => item.type === type);
             }
-            
             const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
             const endIndex = startIndex + ITEMS_PER_PAGE;
             const contentForPage = filteredContent.slice(startIndex, endIndex);
-
             listGrid.innerHTML = '';
             if (contentForPage.length === 0) {
                 listGrid.innerHTML = `<p style="color: #ccc; grid-column: 1 / -1;">Tidak ada konten yang ditemukan.</p>`;
                 return;
             }
-
             contentForPage.forEach(item => listGrid.appendChild(createContentItem(item)));
-            setupPagination(filteredContent.length, currentPage, type, country);
-
+            setupPagination(filteredContent.length, currentPage, urlParams);
         } catch (error) {
             console.error('Gagal memuat list konten:', error);
             listGrid.innerHTML = `<p style="color: #ccc; grid-column: 1 / -1;">Gagal memuat data.</p>`;
         }
     }
-
-    // Panggil fungsi untuk memuat konten saat halaman dibuka
     loadContent();
-
-    // === TAMBAHKAN LOGIKA PENCARIAN DI SINI ===
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase().trim();
-            // Ambil semua item yang SEDANG DITAMPILKAN di grid
-            const itemsOnPage = listGrid.querySelectorAll('.movie-item');
-            
-            itemsOnPage.forEach(item => {
-                const titleElement = item.querySelector('.movie-title');
-                if (titleElement) {
-                    const title = titleElement.textContent.toLowerCase();
-                    // Sembunyikan atau tampilkan berdasarkan judul
-                    if (title.includes(term)) {
-                        item.style.display = 'flex';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                }
-            });
-        });
-    }
 });
