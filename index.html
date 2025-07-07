@@ -11,31 +11,17 @@
     <header>
         <div class="menu-toggle" id="menu-toggle">☰</div>
         <a href="index.html" class="logo">BroFlix</a>
-        
-        <!-- === SEARCH BAR PINDAH KE SINI === -->
-        <div class="search-container">
-             <input type="search" id="search-input" placeholder="Cari judul...">
-        </div>
+        <div class="header-placeholder"></div>
     </header>
-
     <nav class="sidebar" id="sidebar">
-        <!-- Search bar sudah dihapus dari sini -->
+        <input type="search" id="search-input" placeholder="Cari film atau series...">
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="list.html?type=series">Series</a></li>
             <li><a href="list.html?type=movie">Movies</a></li>
-            
-            <!-- === MENU NEGARA KEMBALI KE SINI === -->
-            <li class="has-submenu" id="country-menu-toggle">
-                <a href="#">Negara <span class="arrow">▾</span></a>
-                <ul class="submenu" id="country-submenu">
-                    <li><a href="#">Memuat...</a></li>
-                </ul>
-            </li>
         </ul>
     </nav>
     <div class="overlay" id="overlay"></div>
-
     <main>
         <section class="movie-category">
             <div class="section-header">
@@ -44,7 +30,6 @@
             </div>
             <div class="movie-grid" id="movies-grid"></div>
         </section>
-
         <section class="movie-category">
              <div class="section-header">
                 <h2><i class="fa-solid fa-tv"></i> Serial TV Populer</h2>
@@ -52,9 +37,11 @@
             </div>
             <div class="movie-grid" id="series-grid"></div>
         </section>
-        <!-- Seksi Negara di halaman utama sudah dihapus -->
+        <section class="movie-category">
+            <h2><i class="fa-solid fa-globe"></i> Jelajahi Berdasarkan Negara</h2>
+            <div class="country-grid" id="country-buttons-container"></div>
+        </section>
     </main>
-
     <footer>
         <p>© 2024 BroFlix. Dibuat dengan cinta.</p>
     </footer>
