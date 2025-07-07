@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('movies.json');
             const data = await response.json();
             
-            // Tampilkan Film dan Series
             const movies = data.filter(item => item.type === 'movie');
             const series = data.filter(item => item.type === 'series');
             if (moviesGrid) { moviesGrid.innerHTML = ''; movies.slice(0, 10).forEach(movie => moviesGrid.appendChild(createContentItem(movie))); }
@@ -35,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Panggil fungsi utama jika di halaman index
     if (moviesGrid || seriesGrid) {
         initializePage();
     }
@@ -46,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('show'); });
     }
 
-    // --- Logika Header Search (mengarahkan ke list.html) ---
+    // --- Logika Header Search ---
     if (headerSearchForm) {
         headerSearchForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -65,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             const countries = [...new Set(data.map(item => item.country))].sort();
             
-            countrySubmenu.innerHTML = ''; // Hapus "Memuat..."
+            countrySubmenu.innerHTML = ''; 
             countries.forEach(country => {
                 const li = document.createElement('li');
                 li.innerHTML = `<a href="list.html?country=${encodeURIComponent(country)}">${country}</a>`;
@@ -78,11 +76,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (countryMenuToggle) {
+        // Logika klik yang sudah diperbaiki
         countryMenuToggle.addEventListener('click', (event) => {
-            event.preventDefault(); // Mencegah link pindah halaman
-            countryMenuToggle.classList.toggle('active'); // Menambah/menghapus class untuk expand/collapse
+            // Cek apakah yang diklik adalah link di dalam submenu
+            if (event.target.closest('.submenu')) {
+                // Jika ya, biarkan link berfungsi normal (jangan lakukan apa-apa)
+                return;
+            }
+            
+            // Jika yang diklik adalah menu utama "Negara", baru kita cegah dan buka/tutup menu
+            event.preventDefault(); 
+            countryMenuToggle.classList.toggle('active');
         });
-        // Panggil fungsi untuk mengisi daftar negara
+        
         populateCountryMenu();
     }
 });
