@@ -8,21 +8,24 @@
 </head>
 <body>
     <header>
-        <a href="index.html" class="back-button">←</a>
+        <a href="index.html" class="back-button">← Kembali</a>
         <a href="index.html" class="logo">BroFlix</a>
         <div class="header-placeholder"></div>
     </header>
-
     <main class="stream-container">
         <h1 id="stream-movie-title">Memuat judul...</h1>
-        
         <div class="video-container">
             <div class="video-player-wrapper">
                 <iframe id="video-iframe" frameborder="0" allowfullscreen></iframe>
             </div>
-            <!-- Overlay Iklan sudah dipindahkan dari sini -->
+            <div id="ad-overlay">
+                <div class="ad-box">
+                    <h3>Nonton Gratis?</h3>
+                    <p>Cukup klik iklan di bawah ini sekali untuk membuka pemutar video. Terima kasih telah mendukung kami!</p>
+                    <a href="GANTI_DENGAN_LINK_ADSTERRA_KAMU" id="ad-link" target="_blank">KLIK IKLAN UNTUK MELANJUTKAN</a>
+                </div>
+            </div>
         </div>
-
         <div id="series-selector" class="hide">
             <div class="season-list">
                 <h3>Pilih Season:</h3>
@@ -33,7 +36,6 @@
                 <div id="episode-buttons" class="button-group"></div>
             </div>
         </div>
-
         <div class="movie-details">
             <h2>Detail Film</h2>
             <p><strong>Kualitas:</strong> <span id="detail-quality">...</span></p>
@@ -41,21 +43,16 @@
             <p><strong>Pemeran:</strong> <span id="detail-actors">...</span></p>
             <p><strong>Sutradara:</strong> <span id="detail-director">...</span></p>
             <p><strong>Negara:</strong> <span id="detail-country">...</span></p>
+            
+            <!-- === SEKSI BARU UNTUK SINOPSIS === -->
+            <div class="synopsis-section">
+                <h3>Sinopsis</h3>
+                <p id="detail-synopsis">Memuat sinopsis...</p>
+            </div>
+            <!-- === AKHIR SEKSI BARU === -->
+
         </div>
     </main>
-
-    <!-- === POPUP MODAL IKLAN === -->
-    <div id="ad-overlay">
-        <div class="ad-box">
-            <h3>Nonton Gratis?</h3>
-            <p>Cukup klik iklan di bawah ini sekali untuk membuka pemutar video. Terima kasih telah mendukung kami!</p>
-            <a href="GANTI_DENGAN_LINK_ADSTERRA_KAMU" id="ad-link" target="_blank">
-                KLIK IKLAN UNTUK MELANJUTKAN
-            </a>
-        </div>
-    </div>
-    <!-- === AKHIR POPUP MODAL === -->
-    
     <script src="stream.js"></script>
 </body>
 </html>
