@@ -38,14 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (let i = 1; i <= totalPages; i++) {
             const pageLink = document.createElement('a');
-            
             let link = 'list.html?';
             if (country) {
                 link += `country=${encodeURIComponent(country)}&page=${i}`;
             } else if (type) {
                 link += `type=${type}&page=${i}`;
             }
-            
             pageLink.href = link;
             pageLink.textContent = i;
             pageLink.classList.add('page-item');
@@ -80,7 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let filteredContent = allContent;
 
             if (country) {
-                filteredContent = allContent.filter(item => item.country === country);
+                // UPGRADE: Cek apakah daftar negara film mengandung negara yang dicari
+                filteredContent = allContent.filter(item => 
+                    Array.isArray(item.country) && item.country.includes(country)
+                );
             } else if (type) {
                 filteredContent = allContent.filter(item => item.type === type);
             }
