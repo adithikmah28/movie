@@ -7,18 +7,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- === HEADER YANG SUDAH DIPERBAIKI === -->
     <header>
-        <!-- Kolom Kiri: Tombol Kembali -->
         <a href="index.html" class="back-button">←</a>
-
-        <!-- Kolom Tengah: Logo -->
         <a href="index.html" class="logo">BroFlix</a>
-        
-        <!-- Kolom Kanan: Penyeimbang Kosong -->
         <div class="header-placeholder"></div>
     </header>
-    <!-- === AKHIR HEADER PERBAIKAN === -->
 
     <main class="stream-container">
         <h1 id="stream-movie-title">Memuat judul...</h1>
@@ -27,14 +20,7 @@
             <div class="video-player-wrapper">
                 <iframe id="video-iframe" frameborder="0" allowfullscreen></iframe>
             </div>
-            <!-- Overlay Iklan HARUS di dalam video-container -->
-            <div id="ad-overlay">
-                <div class="ad-box">
-                    <h3>Nonton Gratis?</h3>
-                    <p>Cukup klik iklan di bawah ini sekali untuk membuka pemutar video. Terima kasih telah mendukung kami!</p>
-                    <a href="GANTI_DENGAN_LINK_ADSTERRA_KAMU" id="ad-link" target="_blank">KLIK IKLAN UNTUK MELANJUTKAN</a>
-                </div>
-            </div>
+            <!-- Overlay Iklan sudah dipindahkan dari sini -->
         </div>
 
         <div id="series-selector" class="hide">
@@ -57,6 +43,18 @@
             <p><strong>Negara:</strong> <span id="detail-country">...</span></p>
         </div>
     </main>
+
+    <!-- === POPUP MODAL IKLAN === -->
+    <div id="ad-overlay">
+        <div class="ad-box">
+            <h3>Nonton Gratis?</h3>
+            <p>Cukup klik iklan di bawah ini sekali untuk membuka pemutar video. Terima kasih telah mendukung kami!</p>
+            <a href="GANTI_DENGAN_LINK_ADSTERRA_KAMU" id="ad-link" target="_blank">
+                KLIK IKLAN UNTUK MELANJUTKAN
+            </a>
+        </div>
+    </div>
+    <!-- === AKHIR POPUP MODAL === -->
     
     <script src="stream.js"></script>
 </body>
