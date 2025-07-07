@@ -53,10 +53,56 @@ main { padding: 20px 30px; }
 .stream-container { padding: 20px; padding-top: 100px; max-width: 1200px; margin: 0 auto; }
 .stream-title-container { text-align: center; margin-bottom: 25px; }
 #stream-movie-title { background-color: var(--primary-color); color: white; padding: 12px 25px; border-radius: 8px; display: inline-block; font-size: 1.8em; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); margin: 0; }
-.video-container { position: relative; width: 100%; margin-top: 20px; }
+.video-container { position: relative; width: 100%; }
 .video-player-wrapper { position: relative; padding-top: 56.25%; background-color: #000; }
 .video-player-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-#ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center; z-index: 10; text-align: center; padding: 20px; box-sizing: border-box; }
+
+/* --- BAGIAN YANG DIPERBAIKI --- */
+#ad-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* INI CARA YANG BENAR: Hanya background yang transparan */
+    background: rgba(0, 0, 0, 0.85);
+    /* JANGAN GUNAKAN: opacity: 0.85; <-- INI AKAN MEMBUAT TEKS IKUT TRANSPARAN */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.ad-box {
+    max-width: 500px;
+}
+.ad-box h3 {
+    font-size: 1.8em;
+    color: var(--primary-color); /* Warna solid, tidak transparan */
+}
+.ad-box p {
+    margin: 15px 0;
+    font-size: 1.1em;
+    line-height: 1.5;
+    color: var(--light-color); /* Pastikan warna solid, tidak transparan */
+}
+#ad-link {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+#ad-link:hover { background-color: #218838; }
+/* --- AKHIR BAGIAN YANG DIPERBAIKI --- */
+
 .movie-details { margin-top: 30px; padding: 20px; background-color: #1a1a1a; border-radius: 5px; }
 .movie-details h2 { margin-top: 0; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; margin-bottom: 20px; }
 .movie-details p { margin: 10px 0; font-size: 1.1em; color: #ccc; }
