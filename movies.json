@@ -11,8 +11,22 @@
     "actors": ["Christian Bale", "Heath Ledger", "Aaron Eckhart"],
     "director": "Christopher Nolan",
     "genre": ["Action", "Drama", "Thriller"],
-    "country": "USA",
-    "synopsis": "Ketika ancaman yang dikenal sebagai Joker muncul dari masa lalunya yang misterius, dia membuat kekacauan di kota Gotham. The Dark Knight harus menerima salah satu ujian psikologis dan fisik terbesar dari kemampuannya untuk melawan ketidakadilan."
+    "country": ["USA"]
+    "country": ["Amerika Serikat"]
+  },
+  {
+    "id": 2,
+    "type": "movie",
+    "title": "John Wick",
+    "year": 2014,
+    "poster": "https://image.tmdb.org/t/p/original/wXqWR7dHncNRbxoEGybEy7QTe9h.jpg",
+    "iframeUrl": "https://vidlink.pro/movie/245891",
+    "quality": "HD",
+    "rating": 7.4,
+    "actors": ["Keanu Reeves", "Michael Nyqvist", "Alfie Allen"],
+    "director": "Chad Stahelski",
+    "genre": ["Action", "Thriller"],
+    "country": ["Amerika Serikat"]
   },
   {
     "id": 5,
@@ -30,8 +44,7 @@
     "actors": ["Bryan Cranston", "Aaron Paul", "Anna Gunn"],
     "director": "Vince Gilligan",
     "genre": ["Crime", "Drama", "Thriller"],
-    "country": "USA",
-    "synopsis": "Seorang guru kimia sekolah menengah yang didiagnosis menderita kanker paru-paru stadium akhir yang tidak dapat dioperasi bekerja sama dengan mantan muridnya untuk memproduksi dan mendistribusikan methamphetamine untuk mengamankan masa depan keuangan keluarganya."
+    "country": "USA"
   },
   {
     "id": 6,
@@ -50,7 +63,6 @@
     "actors": ["Emilia Clarke", "Kit Harington", "Peter Dinklage"],
     "director": "David Benioff",
     "genre": ["Sci-Fi & Fantasy", "Drama", "Action"],
-    "country": "USA",
-    "synopsis": "Sembilan keluarga bangsawan berjuang untuk menguasai tanah mitos Westeros, sementara musuh kuno kembali setelah tidak aktif selama ribuan tahun."
+    "country": "USA"
   }
 ]
