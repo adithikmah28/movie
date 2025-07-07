@@ -1,11 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Elemen Halaman Utama ---
     const moviesGrid = document.getElementById('movies-grid');
     const seriesGrid = document.getElementById('series-grid');
-    const countryContainer = document.getElementById('country-buttons-container');
-    const menuToggle = document.getElementById('menu-toggle');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const searchInput = document.getElementById('search-input');
 
     function createContentItem(item) {
         const itemElement = document.createElement('div');
@@ -19,49 +15,64 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('movies.json');
             const data = await response.json();
-
+            // Tampilkan Film dan Series
             const movies = data.filter(item => item.type === 'movie');
             const series = data.filter(item => item.type === 'series');
             if (moviesGrid) { moviesGrid.innerHTML = ''; movies.slice(0, 10).forEach(movie => moviesGrid.appendChild(createContentItem(movie))); }
             if (seriesGrid) { seriesGrid.innerHTML = ''; series.slice(0, 10).forEach(serie => seriesGrid.appendChild(createContentItem(serie))); }
-
-            if (countryContainer) {
-                const countries = [...new Set(data.map(item => item.country))].sort();
-                countryContainer.innerHTML = '';
-                countries.forEach(country => {
-                    const countryLink = document.createElement('a');
-                    countryLink.href = `list.html?country=${encodeURIComponent(country)}`;
-                    countryLink.className = 'country-button';
-                    countryLink.textContent = country;
-                    countryContainer.appendChild(countryLink);
-                });
-            }
         } catch (error) {
-            console.error('Gagal memuat konten halaman:', error);
-            if (moviesGrid) moviesGrid.innerHTML = '<p>Gagal memuat film.</p>';
-            if (seriesGrid) seriesGrid.innerHTML = '<p>Gagal memuat series.</p>';
-            if (countryContainer) countryContainer.innerHTML = '<p>Gagal memuat daftar negara.</p>';
+            console.error('Gagal memuat konten:', error);
         }
     }
-
-    if (moviesGrid || seriesGrid || countryContainer) {
+    
+    if (moviesGrid || seriesGrid) {
         initializePage();
     }
 
+    // --- Logika Sidebar ---
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
     if(menuToggle && sidebar && overlay) {
         menuToggle.addEventListener('click', () => { sidebar.classList.toggle('open'); overlay.classList.toggle('show'); });
         overlay.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('show'); });
     }
-    
-    if(searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase().trim();
-            document.querySelectorAll('.movie-item').forEach(item => {
-                const titleElement = item.querySelector('.movie-title');
-                if (titleElement) {
-                     item.style.display = titleElement.textContent.toLowerCase().includes(term) ? 'flex' : 'none';
-                }
-            });
+
+    // --- Logika Header Search (pindah ke list.html) ---
+    const headerSearchForm = document.getElementById('header-search-form');
+    const headerSearchInput = document.getElementById('header-search-input');
+    if (headerSearchForm) {
+        headerSearchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const searchTerm = headerSearchInput.value.trim();
+            if (searchTerm) {
+                window.location.href = `list.html?search=${encodeURIComponent(searchTerm)}`;
+            }
         });
+    }
+
+    // --- Logika Menu Negara (kembali ke sidebar) ---
+    const countryMenuToggle = document.getElementById('country-menu-toggle');
+    const countrySubmenu = document.getElementById('country-submenu');
+    async function populateCountryMenu() {
+        if (!countrySubmenu) return;
+        try {
+            const response = await fetch('movies.json');
+            const data = await response.json();
+            const countries = [...new Set(data.map(item => item.country))].sort();
+            countrySubmenu.innerHTML = '';
+            countries.forEach(country => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="list.html?country=${encodeURIComponent(country)}">${country}</a>`;
+                countrySubmenu.appendChild(li);
+            });
+        } catch (error) {
+            console.error('Gagal memuat daftar negara:', error);
+            countrySubmenu.innerHTML = '<li><a href="#">Gagal</a></li>';
+        }
+    }
+    if (countryMenuToggle) {
+        countryMenuToggle.addEventListener('click', (e) => { e.preventDefault(); countryMenuToggle.classList.toggle('active'); });
+        populateCountryMenu();
     }
 });
