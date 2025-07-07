@@ -52,18 +52,18 @@ main { padding: 20px 30px; }
 .video-player-wrapper { position: relative; padding-top: 56.25%; background-color: #000; }
 .video-player-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-/* === STYLE BARU UNTUK POPUP MODAL IKLAN === */
+/* === STYLE POPUP MODAL IKLAN (DENGAN PERUBAHAN WARNA) === */
 #ad-overlay {
-    position: fixed; /* Kunci: fixed agar menutupi seluruh layar */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.85); /* Latar belakang gelap transparan */
+    background: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2000; /* Pastikan di atas segalanya */
+    z-index: 2000;
     padding: 20px;
     box-sizing: border-box;
 }
@@ -78,8 +78,24 @@ main { padding: 20px 30px; }
 }
 .ad-box h3 { font-size: 1.8em; color: var(--primary-color); margin-top: 0; }
 .ad-box p { margin: 15px 0 25px 0; font-size: 1.1em; line-height: 1.6; color: #ccc; }
-#ad-link { display: inline-block; background-color: #28a745; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 1.2em; transition: background-color 0.2s; }
-#ad-link:hover { background-color: #218838; }
+
+/* === BAGIAN YANG DIUBAH === */
+#ad-link {
+    display: inline-block;
+    background-color: var(--primary-color); /* DIUBAH menjadi warna MERAH utama */
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2em;
+    transition: background-color 0.2s;
+    border: none;
+}
+#ad-link:hover {
+    background-color: #c40812; /* DIUBAH menjadi warna merah yang lebih gelap */
+}
+/* === AKHIR BAGIAN YANG DIUBAH === */
 
 #series-selector { background-color: #1a1a1a; padding: 20px; border-radius: 5px; margin-top: 25px; }
 .movie-details { margin-top: 30px; padding: 20px; background-color: #1a1a1a; border-radius: 5px; }
