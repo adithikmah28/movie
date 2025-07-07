@@ -24,7 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data) {
                 titleEl.textContent = `${data.title} (${data.year})`;
                 document.title = `Nonton ${data.title} (${data.year}) - BroFlix`;
-                qualityEl.textContent = data.quality; genreEl.textContent = data.genre.join(', '); actorsEl.textContent = data.actors.join(', '); directorEl.textContent = data.director; countryEl.textContent = data.country;
+                qualityEl.textContent = data.quality; 
+                genreEl.textContent = data.genre.join(', '); 
+                actorsEl.textContent = data.actors.join(', '); 
+                directorEl.textContent = data.director; 
+                countryEl.textContent = Array.isArray(data.country) ? data.country.join(', ') : data.country;
+                
                 if (data.type === 'series') {
                     seriesSelector.classList.remove('hide');
                     seasonButtons.innerHTML = '';
