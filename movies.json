@@ -11,7 +11,21 @@
     "actors": ["Christian Bale", "Heath Ledger", "Aaron Eckhart"],
     "director": "Christopher Nolan",
     "genre": ["Action", "Drama", "Thriller"],
-    "country": ["USA"]
+    "country": ["Amerika Serikat"]
+  },
+  {
+    "id": 2,
+    "type": "movie",
+    "title": "John Wick",
+    "year": 2014,
+    "poster": "https://image.tmdb.org/t/p/original/wXqWR7dHncNRbxoEGybEy7QTe9h.jpg",
+    "iframeUrl": "https://vidlink.pro/movie/245891",
+    "quality": "HD",
+    "rating": 7.4,
+    "actors": ["Keanu Reeves", "Michael Nyqvist", "Alfie Allen"],
+    "director": "Chad Stahelski",
+    "genre": ["Action", "Thriller"],
+    "country": ["Amerika Serikat"]
   },
   {
     "id": 5,
