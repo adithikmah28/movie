@@ -14,14 +14,14 @@ header .logo { color: var(--primary-color); font-size: 2em; font-weight: bold; t
 .overlay.show { display: block; }
 main { padding: 20px 30px; }
 .movie-category { margin-bottom: 40px; }
-.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.movie-category h2, #list-title { font-size: 1.5em; border-left: 4px solid var(--primary-color); padding-left: 15px; margin: 0; }
+.section-header { display: flex; justify-content: space-between; align-items: center; }
+.movie-category > h2 { font-size: 1.5em; border-left: 4px solid var(--primary-color); padding-left: 15px; margin-bottom: 20px; }
+.section-header h2, #list-title { font-size: 1.5em; border-left: 4px solid var(--primary-color); padding-left: 15px; margin: 0; }
 #list-title { margin-bottom: 20px; }
-.movie-category h2 { margin-bottom: 20px; }
 .movie-category h2 i, #list-title i { margin-right: 10px; color: var(--primary-color); }
 .view-all-link { background-color: #252525; color: #ccc; text-decoration: none; font-size: 0.8em; font-weight: 500; padding: 6px 14px; border-radius: 20px; border: 1px solid #444; transition: all 0.2s ease-in-out; }
 .view-all-link:hover { background-color: var(--primary-color); color: white; border-color: var(--primary-color); transform: scale(1.05); }
-.movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 25px 15px; }
+.movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 25px 15px; margin-top: 20px; }
 .movie-item { display: flex; flex-direction: column; }
 .movie-poster { position: relative; cursor: pointer; transition: transform 0.2s ease-in-out; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 .movie-poster:hover { transform: scale(1.05); }
@@ -53,27 +53,11 @@ main { padding: 20px 30px; }
 .pagination { display: flex; justify-content: center; align-items: center; margin-top: 40px; gap: 8px; flex-wrap: wrap; }
 .page-item { color: var(--light-color); background-color: #2a2a2a; padding: 10px 15px; text-decoration: none; border-radius: 5px; transition: background-color 0.2s; font-weight: bold; }
 .page-item:hover { background-color: #444; } .page-item.active { background-color: var(--primary-color); color: white; cursor: default; }
-
-/* === STYLE BARU UNTUK SEKSI NEGARA === */
-.country-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-.country-button {
-    background-color: #2a2a2a;
-    color: var(--light-color);
-    padding: 8px 16px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 0.9em;
-    font-weight: 500;
-    transition: background-color 0.2s, color 0.2s;
-}
-.country-button:hover {
-    background-color: var(--primary-color);
-    color: white;
-}
-
+.country-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.country-button { background-color: #2a2a2a; color: var(--light-color); padding: 8px 16px; border-radius: 5px; text-decoration: none; font-size: 0.9em; font-weight: 500; transition: background-color 0.2s, color 0.2s; }
+.country-button:hover { background-color: var(--primary-color); color: white; }
+.synopsis-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid #333; }
+.synopsis-section h3 { margin-top: 0; margin-bottom: 10px; font-size: 1.2em; color: var(--light-color); }
+.synopsis-section p { margin: 0; font-size: 1em; line-height: 1.6; color: #ccc; }
 @media (max-width: 768px) { .movie-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); } }
 footer { text-align: center; padding: 20px; margin-top: 40px; border-top: 1px solid #333; }
