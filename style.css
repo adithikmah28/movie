@@ -1,17 +1,34 @@
 :root { --primary-color: #e50914; --dark-color: #141414; --light-color: #f4f4f4; }
 body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--dark-color); color: var(--light-color); margin: 0; padding: 0; }
 .hide { display: none !important; }
-header { padding: 15px 20px; background-color: #1a1a1a; position: sticky; top: 0; width: 100%; z-index: 100; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
-.menu-toggle, header .back-button { font-size: 24px; cursor: pointer; color: var(--light-color); flex: 1 0 0; text-decoration: none; }
-header .logo { color: var(--primary-color); font-size: 2em; font-weight: bold; text-decoration: none; text-align: center; flex: 1 0 0; }
-.header-placeholder { flex: 1 0 0; }
+
+/* === HEADER BARU === */
+header { padding: 10px 20px; background-color: #1a1a1a; position: sticky; top: 0; width: 100%; z-index: 100; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; gap: 15px; }
+.header-left, .header-right { flex: 1 0 0; }
+.header-center { flex: 2 0 0; text-align: center; }
+.header-right { display: flex; justify-content: flex-end; }
+.menu-toggle, .back-button { font-size: 24px; cursor: pointer; color: var(--light-color); text-decoration: none; }
+.logo { color: var(--primary-color); font-size: 2em; font-weight: bold; text-decoration: none; }
+#header-search-form, #header-search-form-list { width: 100%; }
+#header-search-input, #list-search-input { width: 100%; max-width: 350px; padding: 8px 12px; border: 1px solid #333; background-color: #222; color: var(--light-color); border-radius: 20px; transition: all 0.2s; }
+#header-search-input:focus, #list-search-input:focus { border-color: var(--primary-color); background-color: #111; }
+
+/* === SIDEBAR & NEGARA === */
 .sidebar { position: fixed; top: 0; left: 0; width: 280px; height: 100%; background-color: #000; z-index: 1001; padding: 20px; box-sizing: border-box; transform: translateX(-100%); transition: transform 0.3s ease-in-out; }
 .sidebar.open { transform: translateX(0); }
-#search-input { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #333; background-color: #222; color: var(--light-color); border-radius: 5px; }
 .sidebar ul { list-style: none; padding: 0; margin: 0; }
 .sidebar ul li a { color: var(--light-color); text-decoration: none; display: block; padding: 15px 0; font-size: 1.1em; }
 .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; display: none; }
 .overlay.show { display: block; }
+.sidebar .has-submenu > a { display: flex; justify-content: space-between; align-items: center; }
+.sidebar .has-submenu .arrow { font-size: 0.8em; transition: transform 0.3s ease-in-out; }
+.sidebar .has-submenu.active > a .arrow { transform: rotate(180deg); }
+.sidebar .submenu { list-style: none; padding-left: 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; }
+.sidebar .has-submenu.active .submenu { max-height: 500px; }
+.sidebar .submenu li a { font-size: 0.9em; padding: 10px 0; color: #ccc; }
+.sidebar .submenu li a:hover { color: var(--primary-color); }
+
+/* === KONTEN UTAMA === */
 main { padding: 20px 30px; }
 .movie-category { margin-bottom: 40px; }
 .section-header { display: flex; justify-content: space-between; align-items: center; }
@@ -31,51 +48,39 @@ main { padding: 20px 30px; }
 .rating { position: absolute; bottom: 8px; left: 8px; display: flex; align-items: center; gap: 4px; color: white; background-color: rgba(0,0,0,0.6); padding: 2px 6px; border-radius: 3px; font-size: 0.9em; font-weight: bold; }
 .rating-star { color: #ffc107; }
 .movie-title { color: #ccc; font-size: 0.9em; margin-top: 10px; text-align: left; white-space: normal; overflow-wrap: break-word; }
+
+/* === STREAMING PAGE === */
 .stream-container { padding: 20px; padding-top: 100px; max-width: 1200px; margin: 0 auto; }
+.stream-title-container { text-align: center; margin-bottom: 25px; }
+#stream-movie-title { background-color: var(--primary-color); color: white; padding: 12px 25px; border-radius: 8px; display: inline-block; font-size: 1.8em; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); margin: 0; }
 .video-container { position: relative; width: 100%; margin-top: 20px; }
 .video-player-wrapper { position: relative; padding-top: 56.25%; background-color: #000; }
 .video-player-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 #ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center; z-index: 10; text-align: center; padding: 20px; box-sizing: border-box; }
-.ad-box { max-width: 500px; } .ad-box h3 { font-size: 1.8em; color: var(--primary-color); } .ad-box p { margin: 15px 0; font-size: 1.1em; line-height: 1.5; }
-#ad-link { display: inline-block; background-color: #28a745; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 1.2em; margin-top: 10px; transition: background-color 0.2s; }
-#ad-link:hover { background-color: #218838; }
 .movie-details { margin-top: 30px; padding: 20px; background-color: #1a1a1a; border-radius: 5px; }
 .movie-details h2 { margin-top: 0; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; margin-bottom: 20px; }
 .movie-details p { margin: 10px 0; font-size: 1.1em; color: #ccc; }
 .movie-details p strong { color: #fff; width: 100px; display: inline-block; }
 #series-selector { background-color: #1a1a1a; padding: 20px; border-radius: 5px; margin-top: 25px; }
-#series-selector h3 { margin-top: 0; margin-bottom: 15px; font-size: 1.2em; color: var(--light-color); }
+#series-selector h3, .synopsis-section h3 { margin-top: 0; margin-bottom: 15px; font-size: 1.2em; color: var(--light-color); }
 .season-list { margin-bottom: 20px; } .button-group { display: flex; flex-wrap: wrap; gap: 10px; }
 .se-button { background-color: #333; color: #f4f4f4; border: 1px solid #555; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9em; transition: background-color 0.2s, border-color 0.2s; }
 .se-button:hover { background-color: #444; border-color: #777; }
 .se-button.active { background-color: var(--primary-color); border-color: var(--primary-color); color: white; font-weight: bold; }
+.synopsis-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid #333; }
+.synopsis-section p { margin: 0; font-size: 1em; line-height: 1.6; color: #ccc; }
+
+/* === PAGINATION === */
 .pagination { display: flex; justify-content: center; align-items: center; margin-top: 40px; gap: 8px; flex-wrap: wrap; }
 .page-item { color: var(--light-color); background-color: #2a2a2a; padding: 10px 15px; text-decoration: none; border-radius: 5px; transition: background-color 0.2s; font-weight: bold; }
 .page-item:hover { background-color: #444; } .page-item.active { background-color: var(--primary-color); color: white; cursor: default; }
-.country-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
-.country-button { background-color: #2a2a2a; color: var(--light-color); padding: 8px 16px; border-radius: 5px; text-decoration: none; font-size: 0.9em; font-weight: 500; transition: background-color 0.2s, color 0.2s; }
-.country-button:hover { background-color: var(--primary-color); color: white; }
-.synopsis-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid #333; }
-.synopsis-section h3 { margin-top: 0; margin-bottom: 10px; font-size: 1.2em; color: var(--light-color); }
-.synopsis-section p { margin: 0; font-size: 1em; line-height: 1.6; color: #ccc; }
 
-/* === STYLE BARU UNTUK JUDUL STREAMING === */
-.stream-title-container {
-    text-align: center;
-    margin-bottom: 25px; /* Jarak dari judul ke video player */
-}
-#stream-movie-title {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 12px 25px;
-    border-radius: 8px;
-    display: inline-block; /* Membuat box pas dengan teks */
-    font-size: 1.8em; /* Ukuran font sedikit disesuaikan */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    margin: 0;
-}
-
+/* === RESPONSIVE & FOOTER === */
 @media (max-width: 768px) {
+    header { flex-wrap: wrap; }
+    .header-center { order: -1; flex: 1 1 100%; text-align: center; padding-bottom: 10px; }
+    .header-left, .header-right { flex: 1 1 auto; }
+    #header-search-input, #list-search-input { max-width: 100%; }
     .movie-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
     #stream-movie-title { font-size: 1.4em; padding: 10px 15px; }
 }
