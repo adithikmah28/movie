@@ -1,8 +1,8 @@
 :root { --primary-color: #e50914; --dark-color: #141414; --light-color: #f4f4f4; }
 body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--dark-color); color: var(--light-color); margin: 0; padding: 0; }
 .hide { display: none !important; }
-header { padding: 10px 20px; background-color: #1a1a1a; position: sticky; top: 0; width: 100%; z-index: 100; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; gap: 15px; }
 /* ... (semua style header, sidebar, main content, dll tetap sama) ... */
+header { padding: 10px 20px; background-color: #1a1a1a; position: sticky; top: 0; width: 100%; z-index: 100; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; gap: 15px; }
 .header-left, .header-right { flex: 1 0 0; }
 .header-center { flex: 2 0 0; text-align: center; }
 .header-right { display: flex; justify-content: flex-end; }
@@ -65,18 +65,13 @@ main { padding: 20px 30px; }
 .page-item { color: var(--light-color); background-color: #2a2a2a; padding: 10px 15px; text-decoration: none; border-radius: 5px; transition: background-color 0.2s; font-weight: bold; }
 .page-item:hover { background-color: #444; } .page-item.active { background-color: var(--primary-color); color: white; cursor: default; }
 
-/* === STYLE BARU UNTUK POPUP DAN OVERLAY === */
-#video-play-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.3); z-index: 5; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: background-color 0.2s; }
-#video-play-overlay:hover { background-color: rgba(0,0,0,0.5); }
-#play-icon { width: 0; height: 0; border-top: 30px solid transparent; border-bottom: 30px solid transparent; border-left: 50px solid rgba(255, 255, 255, 0.8); transition: transform 0.2s; }
-#video-play-overlay:hover #play-icon { transform: scale(1.1); }
+/* === STYLE BARU POPUP MODAL LOCK === */
+#video-lock-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: transparent; z-index: 5; }
 #modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 2000; display: flex; justify-content: center; align-items: center; }
-#modal-box { position: relative; background: #1a1a1a; padding: 30px 40px; border-radius: 8px; max-width: 500px; text-align: center; box-shadow: 0 5px 25px rgba(0,0,0,0.5); }
-#modal-close { position: absolute; top: 10px; right: 15px; background: none; border: none; color: #aaa; font-size: 28px; cursor: pointer; line-height: 1; padding: 0; }
-#modal-close:hover { color: white; }
+#modal-box { background: #1a1a1a; padding: 30px 40px; border-radius: 8px; max-width: 500px; text-align: center; box-shadow: 0 5px 25px rgba(0,0,0,0.5); }
 #modal-box h3 { font-size: 1.8em; color: var(--primary-color); margin-top: 0; }
 #modal-box p { margin: 15px 0 25px 0; font-size: 1.1em; line-height: 1.5; color: var(--light-color); }
-#modal-ad-link { display: inline-block; background-color: #28a745; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 1.2em; transition: background-color 0.2s; }
+#modal-ad-link { display: inline-block; background-color: #28a745; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 1.2em; cursor: pointer; transition: background-color 0.2s; }
 #modal-ad-link:hover { background-color: #218838; }
 
 @media (max-width: 768px) { /* ... (responsive rules) ... */ }
