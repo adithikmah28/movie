@@ -32,8 +32,7 @@ main { padding: 20px 30px; }
 .rating-star { color: #ffc107; }
 .movie-title { color: #ccc; font-size: 0.9em; margin-top: 10px; text-align: left; white-space: normal; overflow-wrap: break-word; }
 .stream-container { padding: 20px; padding-top: 100px; max-width: 1200px; margin: 0 auto; }
-.stream-container h1 { text-align: center; margin-bottom: 20px; font-size: 2em; }
-.video-container { position: relative; width: 100%; }
+.video-container { position: relative; width: 100%; margin-top: 20px; }
 .video-player-wrapper { position: relative; padding-top: 56.25%; background-color: #000; }
 .video-player-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 #ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center; z-index: 10; text-align: center; padding: 20px; box-sizing: border-box; }
@@ -59,5 +58,25 @@ main { padding: 20px 30px; }
 .synopsis-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid #333; }
 .synopsis-section h3 { margin-top: 0; margin-bottom: 10px; font-size: 1.2em; color: var(--light-color); }
 .synopsis-section p { margin: 0; font-size: 1em; line-height: 1.6; color: #ccc; }
-@media (max-width: 768px) { .movie-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); } }
+
+/* === STYLE BARU UNTUK JUDUL STREAMING === */
+.stream-title-container {
+    text-align: center;
+    margin-bottom: 25px; /* Jarak dari judul ke video player */
+}
+#stream-movie-title {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    display: inline-block; /* Membuat box pas dengan teks */
+    font-size: 1.8em; /* Ukuran font sedikit disesuaikan */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .movie-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+    #stream-movie-title { font-size: 1.4em; padding: 10px 15px; }
+}
 footer { text-align: center; padding: 20px; margin-top: 40px; border-top: 1px solid #333; }
