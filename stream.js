@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const videoLockOverlay = document.getElementById('video-lock-overlay');
     const modalBackdrop = document.getElementById('modal-backdrop');
     const modalAdLink = document.getElementById('modal-ad-link');
+    const qualityEl = document.getElementById('detail-quality');
+    const genreEl = document.getElementById('detail-genre');
+    const actorsEl = document.getElementById('detail-actors');
+    const directorEl = document.getElementById('detail-director');
+    const countryEl = document.getElementById('detail-country');
+    const synopsisEl = document.getElementById('detail-synopsis');
     const seriesSelector = document.getElementById('series-selector');
     const seasonButtons = document.getElementById('season-buttons');
     const episodeButtons = document.getElementById('episode-buttons');
@@ -17,6 +23,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function changeVideo(iframeUrl) { if (videoIframe) videoIframe.src = iframeUrl; }
 
+    function generateEpisodeButtons(episodeList) { /* ... sama seperti sebelumnya ... */ }
+    
+    async function getMovieData() {
+        const id = new URLSearchParams(window.location.search).get('id');
+        if (!id) { /* ... */ return; }
+
+        try {
+            const response = await fetch('movies.json');
+            const movies = await response.json();
+            const data = movies.find(m => m.id == id);
+
+            if (data) {
+                // KODE YANG DIPERBAIKI: Mengisi semua detail
+                if (titleEl) titleEl.textContent = `${data.title} (${data.year})`;
+                document.title = `Nonton ${data.title} (${data.year}) - BroFlix`;
+                if (qualityEl) qualityEl.textContent = data.quality || 'N/A';
+                if (genreEl) genreEl.textContent = data.genre.join(', ');
+                if (actorsEl) actorsEl.textContent = data.actors.join(', ');
+                if (directorEl) directorEl.textContent = data.director || 'N/A';
+                if (countryEl) countryEl.textContent = data.country || 'N/A';
+                if (synopsisEl) synopsisEl.textContent = data.synopsis || 'Sinopsis tidak tersedia.';
+                
+                if (data.type === 'series' && data.seasons) {
+                    // ... logika series ...
+                } else {
+                    if (videoIframe) videoIframe.src = data.iframeUrl;
+                }
+                if (modalBackdrop) modalBackdrop.classList.remove('hide');
+            } else {
+                // ...
+            }
+        } catch (error) {
+            // ...
+        }
+    }
+    getMovieData();
+    
     function generateEpisodeButtons(episodeList) {
         const episodeContainer = document.getElementById('episode-container');
         if (!episodeContainer || !episodeButtons) return;
@@ -35,52 +78,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         if (episodeButtons.firstChild) episodeButtons.firstChild.click();
     }
-    
-    async function getMovieData() {
-        const id = new URLSearchParams(window.location.search).get('id');
-        if (!id) {
-            if (titleEl) titleEl.textContent = "Film tidak ditemukan!";
-            if (modalBackdrop) modalBackdrop.classList.add('hide');
-            return;
-        }
-
-        try {
-            const response = await fetch('movies.json');
-            const movies = await response.json();
-            const data = movies.find(m => m.id == id);
-
-            if (data) {
-                if (titleEl) titleEl.textContent = `${data.title} (${data.year})`;
-                // ... isi semua detail ...
-                
-                if (data.type === 'series' && data.seasons) {
-                    seriesSelector.classList.remove('hide');
-                    seasonButtons.innerHTML = '';
-                    data.seasons.forEach(season => {
-                        const btn = document.createElement('button');
-                        btn.className = 'se-button';
-                        btn.textContent = `Season ${season.season_number}`;
-                        btn.addEventListener('click', () => {
-                            seasonButtons.querySelectorAll('.se-button').forEach(b => b.classList.remove('active'));
-                            btn.classList.add('active');
-                            generateEpisodeButtons(season.episodes);
-                        });
-                        seasonButtons.appendChild(btn);
-                    });
-                    if (seasonButtons.firstChild) seasonButtons.firstChild.click();
-                } else {
-                    if (videoIframe) videoIframe.src = data.iframeUrl;
-                }
-                if (modalBackdrop) modalBackdrop.classList.remove('hide'); // Tampilkan popup
-            } else {
-                if (titleEl) titleEl.textContent = "Film tidak ditemukan!";
-                if (modalBackdrop) modalBackdrop.classList.add('hide');
-            }
-        } catch (error) {
-            console.error('Gagal memuat data:', error);
-            if (titleEl) titleEl.textContent = "Gagal memuat data.";
-            if (modalBackdrop) modalBackdrop.classList.add('hide');
-        }
-    }
-    getMovieData();
 });
