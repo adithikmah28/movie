@@ -28,8 +28,14 @@ main { padding: 20px 30px; }
 .view-all-link { background-color: #252525; color: #ccc; text-decoration: none; font-size: 0.8em; font-weight: 500; padding: 6px 14px; border-radius: 20px; border: 1px solid #444; }
 .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 25px 15px; margin-top: 20px; }
 .movie-item { display: flex; flex-direction: column; }
-.movie-poster { position: relative; cursor: pointer; border-radius: 8px; overflow: hidden; }
-.movie-title { color: #ccc; font-size: 0.9em; margin-top: 10px; }
+.movie-poster { position: relative; cursor: pointer; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+.movie-poster:hover { transform: scale(1.05); transition: transform 0.2s; }
+.movie-poster img { width: 100%; display: block; }
+.quality-tag { position: absolute; top: 8px; right: 8px; padding: 3px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.7); }
+.quality-hd { background-color: #28a745; } .quality-sd { background-color: #17a2b8; } .quality-cam { background-color: #dc3545; }
+.rating { position: absolute; bottom: 8px; left: 8px; display: flex; align-items: center; gap: 4px; color: white; background-color: rgba(0,0,0,0.6); padding: 2px 6px; border-radius: 3px; font-size: 0.9em; font-weight: bold; }
+.rating-star { color: #ffc107; }
+.movie-title { color: #ccc; font-size: 0.9em; margin-top: 10px; text-align: left; white-space: normal; overflow-wrap: break-word; }
 .stream-container { padding: 20px; padding-top: 100px; max-width: 1200px; margin: 0 auto; }
 .stream-title-container { text-align: center; margin-bottom: 25px; }
 #stream-movie-title { background-color: var(--primary-color); color: white; padding: 12px 25px; border-radius: 8px; display: inline-block; font-size: 1.8em; margin: 0; }
