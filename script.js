@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const countryMenuToggle = document.getElementById('country-menu-toggle');
     const countrySubmenu = document.getElementById('country-submenu');
 
+    // --- Fungsi Bantuan ---
     function createContentItem(item) {
         const itemElement = document.createElement('div');
         itemElement.classList.add('movie-item');
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return itemElement;
     }
 
+    // --- Fungsi Utama untuk Mengisi Halaman ---
     async function initializePage() {
         try {
             const response = await fetch('movies.json');
@@ -28,20 +30,27 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // 1. Tampilkan Film (semua negara)
             const movies = data.filter(item => item.type === 'movie');
-            if (moviesGrid) { moviesGrid.innerHTML = ''; movies.slice(0, 10).forEach(movie => moviesGrid.appendChild(createContentItem(movie))); }
+            if (moviesGrid) { 
+                moviesGrid.innerHTML = ''; 
+                movies.slice(0, 10).forEach(movie => moviesGrid.appendChild(createContentItem(movie))); 
+            }
             
             // 2. Tampilkan Series
             const series = data.filter(item => item.type === 'series');
-            if (seriesGrid) { seriesGrid.innerHTML = ''; series.slice(0, 10).forEach(serie => seriesGrid.appendChild(createContentItem(serie))); }
+            if (seriesGrid) { 
+                seriesGrid.innerHTML = ''; 
+                series.slice(0, 10).forEach(serie => seriesGrid.appendChild(createContentItem(serie))); 
+            }
 
-            // 3. Tampilkan Film Indonesia
+            // 3. TAMPILKAN FILM INDONESIA (BAGIAN YANG DIPERBAIKI)
             const indonesiaMovies = data.filter(item => item.country === 'Indonesia');
             const indonesiaSection = document.getElementById('indonesia-movies-section');
             if (indonesiaMoviesGrid && indonesiaMovies.length > 0) {
                 indonesiaMoviesGrid.innerHTML = '';
                 indonesiaMovies.slice(0, 10).forEach(movie => indonesiaMoviesGrid.appendChild(createContentItem(movie)));
             } else if (indonesiaSection) {
-                indonesiaSection.classList.add('hide'); // Sembunyikan jika tidak ada film Indonesia
+                // Sembunyikan seksi ini jika tidak ada film Indonesia di movies.json
+                indonesiaSection.classList.add('hide'); 
             }
             
         } catch (error) {
@@ -49,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
+    // Panggil fungsi utama
     initializePage();
     
     // --- Logika Navigasi (Sidebar, Search, Menu Negara) ---
