@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Logika Kunci Iklan ---
     function unlockPlayer() {
-        modalBackdrop.classList.add('hide'); // Sembunyikan popup
-        videoLockOverlay.classList.add('hide'); // Hapus overlay transparan di atas video
+        modalBackdrop.classList.add('hide'); 
+        videoLockOverlay.classList.add('hide'); 
     }
 
     if (modalAdLink) {
@@ -29,11 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
             unlockPlayer();
         });
     }
-
-    // --- Logika Memuat Data Film/Series ---
+    
+    // --- Logika Memuat Data yang Canggih (Dengan Episode) ---
     function changeVideo(tmdbId, s, e) {
         if (videoIframe) {
-            videoIframe.src = `https://vidsrc.to/embed/tv/${tmdbId}/${s}-${e}`;
+            // Ini sudah benar menggunakan vidlink.pro untuk series
+            videoIframe.src = `https://vidlink.pro/embed/tv/${tmdbId}?s=${s}&e=${e}`;
         }
     }
 
@@ -60,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = new URLSearchParams(window.location.search).get('id');
         if (!id) {
             if (titleEl) titleEl.textContent = "Film tidak ditemukan!";
-            modalBackdrop.classList.add('hide'); // Sembunyikan popup jika film tidak ada
+            modalBackdrop.classList.add('hide'); 
             return;
         }
 
@@ -79,11 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(actorsEl) actorsEl.textContent = data.actors.join(', ');
                 if(directorEl) directorEl.textContent = data.director;
                 if(countryEl) countryEl.textContent = data.country;
-                if(synopsisEl) synopsisEl.textContent = data.synopsis || 'Sinopsis untuk film ini tidak tersedia.';
+                if(synopsisEl) synopsisEl.textContent = data.synopsis || 'Sinopsis tidak tersedia.';
 
-                // Logika untuk Movie vs Series
+                // Logika untuk membedakan Movie vs Series
                 if (data.type === 'series' && data.seasons) {
-                    seriesSelector.classList.remove('hide');
+                    seriesSelector.classList.remove('hide'); 
                     seasonButtons.innerHTML = '';
                     data.seasons.forEach(season => {
                         const btn = document.createElement('button');
@@ -100,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         seasonButtons.querySelector('.se-button').click();
                     }
                 } else {
+                    // Jika ini film, langsung set iframeUrl
                     if (videoIframe) videoIframe.src = data.iframeUrl;
                 }
             } else {
