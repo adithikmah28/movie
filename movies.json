@@ -5,7 +5,7 @@
     "title": "The Dark Knight",
     "year": 2008,
     "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
-    "iframeUrl": "https://vidlink.pro/movie/155?sub_file=https://raw.githubusercontent.com/adithikmah28/Movie/main/Subtitle/The.Dark.Knight.2008.IMAX.1080p.BluRay.10bit.x265.HEVC.6CH.vtt&sub_label=Indonesia",
+    "iframeUrl": "https://vidlink.pro/embed/movie/tt0468569",
     "quality": "HD", "rating": 9.0, "actors": ["Christian Bale", "Heath Ledger"], "director": "Christopher Nolan",
     "genre": ["Action", "Drama", "Thriller"], "country": "USA",
     "synopsis": "Ketika ancaman yang dikenal sebagai Joker muncul, The Dark Knight harus menerima salah satu ujian psikologis dan fisik terbesar dari kemampuannya untuk melawan ketidakadilan."
@@ -16,20 +16,14 @@
     "title": "Breaking Bad",
     "year": 2008,
     "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
-    "tmdb_id": "1396", "seasons": [{ "season_number": 1, "total_episodes": 7 }], "quality": "HD", "rating": 9.5,
-    "actors": ["Bryan Cranston", "Aaron Paul"], "director": "Vince Gilligan", "genre": ["Crime", "Drama"], "country": "USA",
+    "tmdb_id": "1396",
+    "seasons": [
+      { "season_number": 1, "total_episodes": 7 },
+      { "season_number": 2, "total_episodes": 13 }
+    ],
+    "quality": "HD", "rating": 9.5, "actors": ["Bryan Cranston", "Aaron Paul"], "director": "Vince Gilligan",
+    "genre": ["Crime", "Drama"], "country": "USA",
     "synopsis": "Seorang guru kimia yang didiagnosis menderita kanker paru-paru stadium akhir bekerja sama dengan mantan muridnya untuk memproduksi dan mendistribusikan methamphetamine."
-  },
-  {
-    "id": 7,
-    "type": "movie",
-    "title": "Pengabdi Setan 2: Communion",
-    "year": 2022,
-    "poster": "https://image.tmdb.org/t/p/original/zzpxuEXS1azwhqfvtacLtScixbS.jpg",
-    "iframeUrl": "https://vidlink.pro/movie/925786",
-    "quality": "HD", "rating": 7.1, "actors": ["Tara Basro", "Endy Arfian"], "director": "Joko Anwar",
-    "genre": ["Horor", "Misteri", "Drama"], "country": "Indonesia",
-    "synopsis": "Beberapa tahun setelah berhasil menyelamatkan diri dari kejadian mengerikan, Rini dan adik-adiknya tinggal di rumah susun. Mereka percaya tinggal di rumah susun aman, karena ada banyak orang jika terjadi sesuatu. Namun, mereka segera menyadari bahwa tinggal bersama banyak orang mungkin juga lebih berbahaya."
   },
   {
     "id": 8,
@@ -37,7 +31,7 @@
     "title": "The Raid: Redemption",
     "year": 2011,
     "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/tRTyBjw2Y7g062v2iG259aH1b12.jpg",
-    "iframeUrl": "https://vidsrc.to/embed/movie/tt1899353",
+    "iframeUrl": "https://vidlink.pro/embed/movie/tt1899353",
     "quality": "HD", "rating": 7.5, "actors": ["Iko Uwais", "Joe Taslim"], "director": "Gareth Evans",
     "genre": ["Action", "Thriller"], "country": "Indonesia",
     "synopsis": "Sebuah tim S.W.A.T. terjebak di sebuah gedung apartemen yang dikelola oleh seorang gembong narkoba tanpa ampun dan pasukannya yang terdiri dari para pembunuh dan gangster."
@@ -48,7 +42,7 @@
     "title": "KKN di Desa Penari",
     "year": 2022,
     "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/v1x2Yy2iswsd1aY6g3K6m2r8YVs.jpg",
-    "iframeUrl": "https://vidsrc.to/embed/movie/tt11354060",
+    "iframeUrl": "https://vidlink.pro/embed/movie/tt11354060",
     "quality": "HD", "rating": 6.3, "actors": ["Tissa Biani", "Achmad Megantara"], "director": "Awi Suryadi",
     "genre": ["Horor", "Misteri"], "country": "Indonesia",
     "synopsis": "Sekelompok mahasiswa yang melakukan program KKN di sebuah desa terpencil mulai mengalami kejadian-kejadian aneh yang mengerikan setelah salah satu dari mereka melanggar aturan paling sakral di desa tersebut."
