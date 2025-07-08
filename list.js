@@ -6,41 +6,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const ITEMS_PER_PAGE = 20;
     let allData = [];
 
-    function createContentItem(item) { /* ... sama seperti script.js ... */ }
-    function setupPagination(totalItems, currentPage, params) { /* ... sama seperti sebelumnya ... */ }
-
-    function displayContent(content, currentPage, params) {
-        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-        const endIndex = startIndex + ITEMS_PER_PAGE;
-        listGrid.innerHTML = '';
-        if (content.length === 0) {
-            listGrid.innerHTML = `<p style="color: #ccc; grid-column: 1 / -1;">Tidak ada konten yang ditemukan.</p>`;
-        } else {
-            content.slice(startIndex, endIndex).forEach(item => listGrid.appendChild(createContentItem(item)));
-        }
-        setupPagination(content.length, currentPage, params);
-    }
-
-    async function loadAndFilterContent() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const type = urlParams.get('type'), country = urlParams.get('country'), search = urlParams.get('search');
-        const currentPage = parseInt(urlParams.get('page')) || 1;
-
-        // ... logika judul ...
-        
-        try {
-            const response = await fetch('movies.json');
-            allData = await response.json();
-            let filteredContent = allData;
-            if (search) filteredContent = allData.filter(item => item.title.toLowerCase().includes(search.toLowerCase()));
-            else if (country) filteredContent = allData.filter(item => item.country === country);
-            else if (type) filteredContent = allData.filter(item => item.type === type);
-            
-            displayContent(filteredContent, currentPage, urlParams);
-        } catch (error) { console.error('Gagal memuat list:', error); }
+    function createContentItem(item) {
+        const itemElement = document.createElement('div');
+        itemElement.classList.add('movie-item');
+        // KODE YANG DIPERBAIKI: Mengembalikan semua elemen ke dalam poster
+        itemElement.innerHTML = `
+            <div class="movie-poster">
+                <img src="${item.poster}" alt="${item.title}">
+                <div class="quality-tag quality-${item.quality.toLowerCase()}">${item.quality}</div>
+                <div class="rating">
+                    <span class="rating-star">⭐</span>
+                    <span>${item.rating.toFixed(1)}</span>
+                </div>
+            </div>
+            <p class="movie-title">${item.title} (${item.year})</p>`;
+        itemElement.querySelector('.movie-poster').addEventListener('click', () => { window.location.href = `stream.html?id=${item.id}`; });
+        return itemElement;
     }
     
+    // ... sisa kode list.js tetap sama ...
+    
+    function setupPagination(totalItems, currentPage, params) { /* ... */ }
+    function displayContent(content, currentPage, params) { /* ... */ }
+    async function loadAndFilterContent() { /* ... */ }
     loadAndFilterContent();
-
-    // ... sisa fungsi dan event listener ...
+    if (listSearchInput) { /* ... */ }
 });
