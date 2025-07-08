@@ -61,4 +61,22 @@ main { padding: 20px 30px; }
 .page-item { color: var(--light-color); background-color: #2a2a2a; padding: 10px 15px; text-decoration: none; border-radius: 5px; }
 .page-item.active { background-color: var(--primary-color); }
 footer { text-align: center; padding: 20px; margin-top: 40px; border-top: 1px solid #333; }
-@media (max-width: 768px) { /* responsive rules */ }
+
+/* === ATURAN RESPONSIVE === */
+@media (max-width: 768px) {
+    .logo { font-size: 1.5em; }
+    #header-search-input, #list-search-input { padding: 6px 10px; font-size: 0.9em; }
+    
+    /* --- INI BAGIAN YANG MEMPERBAIKI UKURAN POSTER --- */
+    .movie-grid {
+        grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)); /* Dikecilkan dari 140px */
+        gap: 20px 12px; /* Jarak juga disesuaikan */
+    }
+    .movie-title {
+        font-size: 0.8em; /* Font judul disesuaikan */
+        margin-top: 8px;
+    }
+    /* --- AKHIR BAGIAN PERBAIKAN --- */
+
+    #stream-movie-title { font-size: 1.4em; padding: 10px 15px; }
+}
