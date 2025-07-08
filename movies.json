@@ -1,9 +1,6 @@
 [
   {
-    "id": 1,
-    "type": "movie",
-    "title": "The Dark Knight",
-    "year": 2008,
+    "id": 1, "type": "movie", "title": "The Dark Knight", "year": 2008,
     "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
     "iframeUrl": "https://vidlink.pro/embed/movie/tt0468569",
     "quality": "HD", "rating": 9.0, "actors": ["Christian Bale", "Heath Ledger"], "director": "Christopher Nolan",
@@ -11,56 +8,27 @@
     "synopsis": "Ketika ancaman yang dikenal sebagai Joker muncul, The Dark Knight harus menerima salah satu ujian psikologis dan fisik terbesar dari kemampuannya untuk melawan ketidakadilan."
   },
   {
-    "id": 5,
-    "type": "series",
-    "title": "Breaking Bad",
-    "year": 2008,
+    "id": 5, "type": "series", "title": "Breaking Bad", "year": 2008,
     "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
-    "quality": "HD", "rating": 9.5,
-    "actors": ["Bryan Cranston", "Aaron Paul"], "director": "Vince Gilligan", "genre": ["Crime", "Drama"], "country": "USA",
+    "quality": "HD", "rating": 9.5, "actors": ["Bryan Cranston", "Aaron Paul"], "director": "Vince Gilligan", 
+    "genre": ["Crime", "Drama"], "country": "USA",
     "synopsis": "Seorang guru kimia yang didiagnosis menderita kanker paru-paru stadium akhir bekerja sama dengan mantan muridnya untuk memproduksi dan mendistribusikan methamphetamine.",
     "seasons": [
-      {
-        "season_number": 1,
-        "episodes": [
+      { "season_number": 1, "episodes": [
           "https://vidlink.pro/embed/tv/1396?s=1&e=1",
-          "https://vidlink.pro/embed/tv/1396?s=1&e=2",
-          "https://vidlink.pro/embed/tv/1396?s=1&e=3"
-        ]
-      },
-      {
-        "season_number": 2,
-        "episodes": [
-          "https://vidlink.pro/embed/tv/1396?s=2&e=1",
-          "https://vidlink.pro/embed/tv/1396?s=2&e=2"
-        ]
-      }
+          "https://vidlink.pro/embed/tv/1396?s=1&e=2"
+      ]},
+      { "season_number": 2, "episodes": [
+          "https://vidlink.pro/embed/tv/1396?s=2&e=1"
+      ]}
     ]
   },
   {
-    "id": 11,
-    "type": "series",
-    "title": "Squid Game",
-    "year": 2021,
-    "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg",
-    "quality": "HD", "rating": 7.8, "actors": ["Lee Jung-jae", "Park Hae-soo"], "director": "Hwang Dong-hyuk",
-    "genre": ["Action", "Misteri", "Drama"], "country": "South Korea",
-    "synopsis": "Ratusan pemain yang kekurangan uang menerima undangan aneh untuk bersaing dalam permainan anak-anak. Di dalamnya, hadiah yang menggiurkan menanti dengan taruhan yang mematikan.",
-    "seasons": [
-        {
-            "season_number": 1,
-            "episodes": [
-                "https://vidlink.pro/embed/tv/93405?s=1&e=1",
-                "https://vidlink.pro/embed/tv/93405?s=1&e=2",
-                "https://vidlink.pro/embed/tv/93405?s=1&e=3",
-                "https://vidlink.pro/embed/tv/93405?s=1&e=4",
-                "https://vidlink.pro/embed/tv/93405?s=1&e=5",
-                "https://vidlink.pro/embed/tv/93405?s=1&e=6",
-                "https://vidlink.pro/embed/tv/93405?s=1&e=7",
-                "https://vidlink.pro/embed/tv/93405?s=1&e=8",
-                "https://vidlink.pro/embed/tv/93405?s=1&e=9"
-            ]
-        }
-    ]
+    "id": 8, "type": "movie", "title": "The Raid: Redemption", "year": 2011,
+    "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/tRTyBjw2Y7g062v2iG259aH1b12.jpg",
+    "iframeUrl": "https://vidlink.pro/embed/movie/tt1899353",
+    "quality": "HD", "rating": 7.5, "actors": ["Iko Uwais", "Joe Taslim"], "director": "Gareth Evans",
+    "genre": ["Action", "Thriller"], "country": "Indonesia",
+    "synopsis": "Sebuah tim S.W.A.T. terjebak di sebuah gedung apartemen yang dikelola oleh seorang gembong narkoba tanpa ampun dan pasukannya yang terdiri dari para pembunuh dan gangster."
   }
 ]
