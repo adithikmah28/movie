@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Elemen Halaman ---
+    // --- Elemen Halaman Utama ---
     const moviesGrid = document.getElementById('movies-grid');
     const seriesGrid = document.getElementById('series-grid');
-    const indonesiaPopularGrid = document.getElementById('indonesia-popular-movies');
+    const indonesiaMoviesGrid = document.getElementById('indonesia-movies-grid');
     
     // --- Elemen Navigasi ---
     const menuToggle = document.getElementById('menu-toggle');
@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const countryMenuToggle = document.getElementById('country-menu-toggle');
     const countrySubmenu = document.getElementById('country-submenu');
 
-    // --- Fungsi Bantuan ---
     function createContentItem(item) {
         const itemElement = document.createElement('div');
         itemElement.classList.add('movie-item');
@@ -22,26 +21,27 @@ document.addEventListener('DOMContentLoaded', () => {
         return itemElement;
     }
 
-    // --- Fungsi Utama untuk Mengisi Halaman ---
     async function initializePage() {
         try {
             const response = await fetch('movies.json');
             const data = await response.json();
             
-            // 1. Tampilkan Film dan Series Umum
+            // 1. Tampilkan Film (semua negara)
             const movies = data.filter(item => item.type === 'movie');
-            const series = data.filter(item => item.type === 'series');
             if (moviesGrid) { moviesGrid.innerHTML = ''; movies.slice(0, 10).forEach(movie => moviesGrid.appendChild(createContentItem(movie))); }
+            
+            // 2. Tampilkan Series
+            const series = data.filter(item => item.type === 'series');
             if (seriesGrid) { seriesGrid.innerHTML = ''; series.slice(0, 10).forEach(serie => seriesGrid.appendChild(createContentItem(serie))); }
 
-            // 2. Tampilkan Indonesia Populer
-            const indonesiaPopular = data.filter(item => item.country === 'Indonesia').sort((a, b) => b.rating - a.rating);
-            const indonesiaSection = document.getElementById('indonesia-populer-section');
-            if (indonesiaPopularGrid && indonesiaPopular.length > 0) {
-                indonesiaPopularGrid.innerHTML = '';
-                indonesiaPopular.slice(0, 10).forEach(movie => indonesiaPopularGrid.appendChild(createContentItem(movie)));
+            // 3. Tampilkan Film Indonesia
+            const indonesiaMovies = data.filter(item => item.country === 'Indonesia');
+            const indonesiaSection = document.getElementById('indonesia-movies-section');
+            if (indonesiaMoviesGrid && indonesiaMovies.length > 0) {
+                indonesiaMoviesGrid.innerHTML = '';
+                indonesiaMovies.slice(0, 10).forEach(movie => indonesiaMoviesGrid.appendChild(createContentItem(movie)));
             } else if (indonesiaSection) {
-                indonesiaSection.classList.add('hide'); // Sembunyikan jika tidak ada film
+                indonesiaSection.classList.add('hide'); // Sembunyikan jika tidak ada film Indonesia
             }
             
         } catch (error) {
@@ -49,11 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Panggil fungsi utama
     initializePage();
     
-    // --- LOGIKA YANG MEMPERBAIKI SEMUA NAVIGASI ---
-    // 1. Sidebar Menu (Titik Tiga)
+    // --- Logika Navigasi (Sidebar, Search, Menu Negara) ---
     if(menuToggle && sidebar && overlay) {
         menuToggle.addEventListener('click', () => {
             sidebar.classList.toggle('open');
@@ -65,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Header Search
     if (headerSearchForm) {
         headerSearchForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -76,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Menu Negara di Sidebar
     async function populateCountryMenu() {
         if (!countrySubmenu) return;
         try {
