@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Elemen Halaman Utama ---
     const moviesGrid = document.getElementById('movies-grid');
     const seriesGrid = document.getElementById('series-grid');
     const indonesiaMoviesGrid = document.getElementById('indonesia-movies-grid');
+    
+    // --- Elemen Navigasi ---
     const menuToggle = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
@@ -10,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const countryMenuToggle = document.getElementById('country-menu-toggle');
     const countrySubmenu = document.getElementById('country-submenu');
 
+    // --- Fungsi Bantuan ---
     function createContentItem(item) {
         const itemElement = document.createElement('div');
         itemElement.classList.add('movie-item');
@@ -27,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return itemElement;
     }
 
+    // --- Fungsi Utama untuk Mengisi Halaman ---
     async function initializePage() {
         try {
             const response = await fetch('movies.json');
@@ -52,10 +57,63 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    initializePage();
+    // Panggil fungsi hanya jika kita di halaman utama
+    if (moviesGrid || seriesGrid || indonesiaMoviesGrid) {
+        initializePage();
+    }
     
-    if (menuToggle && sidebar && overlay) { /* ... */ }
-    if (headerSearchForm) { /* ... */ }
-    async function populateCountryMenu() { /* ... */ }
-    if (countryMenuToggle) { /* ... */ }
+    // --- LOGIKA YANG MEMPERBAIKI SEMUA NAVIGASI ---
+
+    // 1. Sidebar Menu (Titik Tiga)
+    if (menuToggle && sidebar && overlay) {
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('show');
+        });
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('show');
+        });
+    }
+
+    // 2. Header Search
+    if (headerSearchForm) {
+        headerSearchForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const searchTerm = headerSearchInput.value.trim();
+            if (searchTerm) window.location.href = `list.html?search=${encodeURIComponent(searchTerm)}`;
+        });
+    }
+
+    // 3. Menu Negara di Sidebar
+    async function populateCountryMenu() {
+        if (!countrySubmenu) return;
+        try {
+            const response = await fetch('movies.json');
+            const data = await response.json();
+            const countries = [...new Set(data.map(item => item.country))].sort();
+            countrySubmenu.innerHTML = '';
+            countries.forEach(country => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="list.html?country=${encodeURIComponent(country)}">${country}</a>`;
+                countrySubmenu.appendChild(li);
+            });
+        } catch (error) {
+            console.error('Gagal memuat daftar negara:', error);
+            countrySubmenu.innerHTML = `<li><a href="#">Gagal</a></li>`;
+        }
+    }
+
+    if (countryMenuToggle) {
+        countryMenuToggle.addEventListener('click', event => {
+            // Cek jika yang diklik adalah link di dalam submenu, biarkan berfungsi normal
+            if (event.target.closest('.submenu')) {
+                return;
+            }
+            // Jika yang diklik adalah menu utamanya, baru buka/tutup
+            event.preventDefault();
+            countryMenuToggle.classList.toggle('active');
+        });
+        populateCountryMenu();
+    }
 });
